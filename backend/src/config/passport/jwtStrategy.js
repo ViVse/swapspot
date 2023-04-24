@@ -1,0 +1,31 @@
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+
+import User from "../../models/User.js";
+
+export default function useJWTStrategy(passport) {
+  const secretOrKey = process.env.JWT_SECRET;
+  console.log(secretOrKey);
+
+  // JWT strategy
+  const jwtLogin = new JwtStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromHeader("x-auth-token"),
+      secretOrKey,
+    },
+    async (payload, done) => {
+      try {
+        const user = await User.findById(payload.id);
+
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }
+      } catch (err) {
+        done(err, false);
+      }
+    }
+  );
+
+  passport.use(jwtLogin);
+}
