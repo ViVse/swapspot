@@ -25,6 +25,9 @@ POST /auth/login
 POST /auth/register
 GET /auth/logout
 
-GET api/users/
+GET /api/users/
 GET /api/users/me
+PUT /api/users/me
+DELETE /api/users/me
+GET /api/users/admin
 */

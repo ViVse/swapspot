@@ -1,9 +1,30 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { STORAGE_OPTIONS } from "../../../const/index.js";
+import storage from "../config/storage.js";
 
-// TODO
-// Add avatar
+const avatarSchema = new mongoose.Schema({
+  storage: {
+    type: String,
+    required: true,
+    enum: Object.values(STORAGE_OPTIONS),
+  },
+  path: {
+    type: String,
+    required: [
+      function () {
+        return this.type === STORAGE_OPTIONS.CLOUD;
+      },
+      "Path must be provided for cloud stored data",
+    ],
+  },
+  publicUrl: {
+    type: String,
+    required: true,
+  },
+});
+
 const ratingSchema = new mongoose.Schema({
   from: {
     type: mongoose.Schema.Types.ObjectId,
@@ -41,7 +62,7 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 60,
     },
-    avatar: String,
+    avatar: avatarSchema,
     role: { type: String, default: "USER" },
     raitings: {
       type: [ratingSchema],
@@ -109,6 +130,16 @@ userSchema.methods.comparePassword = function (candidatePassword, callback) {
     callback(null, isMatch);
   });
 };
+
+// Actions before user is deleted
+userSchema.pre("findOneAndDelete", async function (next) {
+  const query = this;
+  const user = await query.cursor().next();
+  if (user.avatar && user.avatar.storage === STORAGE_OPTIONS.CLOUD) {
+    await storage.file(user.avatar.path).delete();
+  }
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 

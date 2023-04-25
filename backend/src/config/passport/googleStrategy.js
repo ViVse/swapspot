@@ -1,6 +1,7 @@
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 
 import User from "../../models/User.js";
+import { STORAGE_OPTIONS } from "../../../../const/storageOptions.js";
 
 export default function useGoogleStrategy(passport) {
   const serverUrl = process.env.SERVER_URL;
@@ -30,7 +31,10 @@ export default function useGoogleStrategy(passport) {
           googleId: profile.id,
           email: profile.email,
           name: profile.displayName,
-          avatar: profile.picture,
+          avatar: {
+            storage: STORAGE_OPTIONS.LINK,
+            publicUrl: profile.picture,
+          },
         }).save();
         done(null, newUser);
       } catch (err) {

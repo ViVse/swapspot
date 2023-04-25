@@ -11,7 +11,7 @@ router.post("/login", requireLocalAuth, (req, res) => {
   const token = req.user.generateJWT();
   const me = req.user.toJSON();
   res.cookie("x-auth-token", token, {
-    maxAge: 2 * 24 * 60 * 60 * 1000,
+    maxAge: 2 * 24 * 60 * 60 * 1000, //2 days
   });
   res.json({ me });
 });
