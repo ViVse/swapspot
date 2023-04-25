@@ -4,6 +4,18 @@ import bcrypt from "bcryptjs";
 
 // TODO
 // Add avatar
+const ratingSchema = new mongoose.Schema({
+  from: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+  },
+});
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,6 +43,13 @@ const userSchema = new mongoose.Schema(
     },
     avatar: String,
     role: { type: String, default: "USER" },
+    raitings: {
+      type: [ratingSchema],
+    },
+    favorites: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Product",
+    },
     // google
     googleId: {
       type: String,
@@ -48,15 +67,13 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.methods.toJSON = function () {
-  return {
-    id: this._id,
-    provider: this.provider,
-    email: this.email,
-    name: this.name,
-    role: this.role,
-    createdAt: this.createdAt,
-    updatedAt: this.updatedAt,
-  };
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.role;
+
+  return userObject;
 };
 
 userSchema.methods.generateJWT = function () {
