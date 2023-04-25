@@ -14,7 +14,6 @@ export default function useGoogleStrategy(passport) {
       proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
-      // console.log(profile);
       try {
         const oldUser = await User.findOne({ email: profile.email });
 
@@ -22,7 +21,7 @@ export default function useGoogleStrategy(passport) {
           return done(null, oldUser);
         }
       } catch (err) {
-        console.log(err);
+        done(err, false);
       }
 
       try {
@@ -35,7 +34,7 @@ export default function useGoogleStrategy(passport) {
         }).save();
         done(null, newUser);
       } catch (err) {
-        console.log(err);
+        done(err, false);
       }
     }
   );

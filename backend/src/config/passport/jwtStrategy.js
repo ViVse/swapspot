@@ -4,8 +4,6 @@ import User from "../../models/User.js";
 
 export default function useJWTStrategy(passport) {
   const secretOrKey = process.env.JWT_SECRET;
-  console.log(secretOrKey);
-
   // JWT strategy
   const jwtLogin = new JwtStrategy(
     {
