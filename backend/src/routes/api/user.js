@@ -75,6 +75,12 @@ router.delete("/me", requireJWTAuth, async (req, res) => {
   res.send(user);
 });
 
+//GET - api/users/:id - get user info
+router.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.send(user);
+});
+
 // GET - api/users/admin - route available only for admin
 router.get("/admin", requireJWTAuth, requireAdminAuth, (req, res) => {
   res.send("Welcome admin");
