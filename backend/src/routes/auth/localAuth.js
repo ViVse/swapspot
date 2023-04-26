@@ -1,9 +1,7 @@
 import { Router } from "express";
-import Joi from "joi";
-
 import User from "../../models/User.js";
 import requireLocalAuth from "../../middleware/requireLocalAuth.js";
-import { registerSchema } from "../../config/passport/validators.js";
+import { registerSchema } from "../../validators/auth-validators.js";
 
 const router = Router();
 
