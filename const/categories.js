@@ -69,17 +69,18 @@ class CATEGORIES {
   };
 
   static getCategoriesArr() {
-    return Object.values(this.catEnumInfo).reduce(
-      (arr, cur) => arr.concat(cur.name, ...Object.values(cur.sub_categories)),
-      []
-    );
+    return Object.values(this.catEnumInfo).reduce((arr, cur) => {
+      let sub = [];
+      if (cur.sub_categories) sub = [...Object.values(cur.sub_categories)];
+      return arr.concat(cur.name, sub);
+    }, []);
   }
 
   static #getSubCategoryArr() {
-    return Object.values(this.catEnumInfo).reduce(
-      (arr, cur) => arr.concat(...Object.values(cur.sub_categories)),
-      []
-    );
+    return Object.values(this.catEnumInfo).reduce((arr, cur) => {
+      if (!cur.sub_categories) return arr;
+      return arr.concat(...Object.values(cur.sub_categories));
+    }, []);
   }
 
   static isSubCategory(cat) {
@@ -121,6 +122,7 @@ for (const [key, value] of Object.entries(CATEGORIES.catEnumInfo)) {
     },
   });
 
+  if (!value.sub_categories) continue;
   for (const [subKey, subValue] of Object.entries(value.sub_categories)) {
     Object.defineProperty(CATEGORIES, subKey, {
       get() {
@@ -130,4 +132,4 @@ for (const [key, value] of Object.entries(CATEGORIES.catEnumInfo)) {
   }
 }
 
-console.log(CATEGORIES.getSubCategories("Одяг та взуття"));
+export { CATEGORIES };
