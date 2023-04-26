@@ -1,4 +1,3 @@
-// TODO: add more categories
 class CATEGORIES {
   static catEnumInfo = {
     ELECTRONICS: {
@@ -64,6 +63,9 @@ class CATEGORIES {
         OILS_AND_CHEMICALS: "Мастила та автохімія",
       },
     },
+    OTHER: {
+      name: "Інше",
+    },
   };
 
   static getCategoriesArr() {
@@ -93,6 +95,22 @@ class CATEGORIES {
 
     throw new Error(`${cat} is not a subcategory`);
   }
+
+  static getSubCategories(cat) {
+    for (const value of Object.values(CATEGORIES.catEnumInfo)) {
+      console.log(value);
+      if (value.name === cat) {
+        if (value.sub_categories) {
+          return Object.values(value.sub_categories);
+        }
+        return null;
+      }
+    }
+  }
+
+  static isValidCategory(cat) {
+    return this.getCategoriesArr().includes(cat);
+  }
 }
 
 // define enum properties
@@ -112,4 +130,4 @@ for (const [key, value] of Object.entries(CATEGORIES.catEnumInfo)) {
   }
 }
 
-export { CATEGORIES };
+console.log(CATEGORIES.getSubCategories("Одяг та взуття"));
