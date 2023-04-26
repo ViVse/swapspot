@@ -30,4 +30,10 @@ GET /api/users/me
 PUT /api/users/me
 DELETE /api/users/me
 GET /api/users/admin
+GET /api/users/:id
+
+GET api/products
+POST api/products
+GET api/products/:id
+PUT api/products/:id/imgs
 */

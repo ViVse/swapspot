@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CATEGORIES } from "../../../const";
+import { CATEGORIES } from "../../../const/categories.js";
 
 const productImgSchema = new mongoose.Schema({
   path: {
@@ -32,7 +32,6 @@ const productSchema = new mongoose.Schema(
     },
     imgs: {
       type: [productImgSchema],
-      required: true,
     },
     tags: {
       type: [String],
