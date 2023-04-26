@@ -1,6 +1,17 @@
 import mongoose from "mongoose";
 import { CATEGORIES } from "../../../const";
 
+const productImgSchema = new mongoose.Schema({
+  path: {
+    type: String,
+    required: [true, "Path must be provided for cloud stored data"],
+  },
+  publicUrl: {
+    type: String,
+    required: true,
+  },
+});
+
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -10,14 +21,17 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "can't be blank"],
-      enum: { values: CATEGORIES, message: "{VALUE} is not supported" },
+      enum: {
+        values: CATEGORIES.getCategoriesArr(),
+        message: "{VALUE} is not supported",
+      },
     },
     description: {
       type: String,
       required: [true, "can't be blank"],
     },
     imgs: {
-      type: [String],
+      type: [productImgSchema],
       required: true,
     },
     tags: {
