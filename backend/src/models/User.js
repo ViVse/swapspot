@@ -93,6 +93,10 @@ userSchema.methods.toJSON = function () {
 
   delete userObject.password;
   delete userObject.role;
+  if (userObject.avatar) {
+    if (userObject.avatar.path) delete userObject.avatar.path;
+    delete userObject.avatar.storage;
+  }
 
   return userObject;
 };
