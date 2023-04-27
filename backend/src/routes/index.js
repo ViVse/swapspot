@@ -35,5 +35,7 @@ GET /api/users/:id
 GET api/products
 POST api/products
 GET api/products/:id
+PUT api/products/:id
 PUT api/products/:id/imgs
+DELETE api/products/:id
 */

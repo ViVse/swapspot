@@ -9,6 +9,13 @@ import storage from "../../config/storage.js";
 const router = Router();
 
 // GET api/products - get products
+// PARAMS:
+// ?owner=ownerID
+// ?category=categoryName
+// ?location=locationName
+// ?skip=number
+// ?limit=number
+// ?orderBy=fieldName_[asc|desc]
 router.get("/", async (req, res) => {
   // Configure match
   const match = {};
@@ -78,6 +85,34 @@ router.get("/:id", async (req, res) => {
     res.send(product);
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+// PUT api/products/:id - change product info
+router.put("/:id", requireJWTAuth, async (req, res) => {
+  const { error } = productSchema.validate(req.body);
+  if (error) return res.status(422).send({ message: error.details[0].message });
+
+  const product = await Product.findOne({
+    _id: req.params.id,
+    owner: req.user._id,
+  });
+  if (!product)
+    return res
+      .status(404)
+      .send({ message: "You do not have product with such id" });
+
+  try {
+    const { name, category, description, tags, location } = req.body;
+    product.name = name;
+    product.category = category;
+    product.description = description;
+    product.tags = tags;
+    product.location = location;
+    await product.save();
+    res.send(product);
+  } catch (e) {
+    res.status(500).send({ message: "Couldn't update product" });
   }
 });
 
