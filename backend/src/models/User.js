@@ -118,7 +118,7 @@ userSchema.methods.generateJWT = function () {
 userSchema.methods.registerUser = (newUser) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const hash = bcrypt.hashSync(newUser.password, 10);
+      const hash = await hashPassword(newUser.password);
       newUser.password = hash;
       const user = await newUser.save();
       resolve(user);
@@ -134,6 +134,20 @@ userSchema.methods.comparePassword = function (candidatePassword, callback) {
     callback(null, isMatch);
   });
 };
+
+// hash password
+export async function hashPassword(password) {
+  const saltRounds = 10;
+
+  const hashedPassword = await new Promise((resolve, reject) => {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+      if (err) reject(err);
+      else resolve(hash);
+    });
+  });
+
+  return hashedPassword;
+}
 
 // Actions before user is deleted
 userSchema.pre("findOneAndDelete", async function (next) {
