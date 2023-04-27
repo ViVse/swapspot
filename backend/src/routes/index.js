@@ -27,7 +27,8 @@ GET /auth/logout
 
 GET /api/users/
 GET /api/users/me
-PUT /api/users/me
+PATCH /api/users/me
+PUT /api/users/me/avatar
 DELETE /api/users/me
 GET /api/users/admin
 GET /api/users/:id

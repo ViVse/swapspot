@@ -4,7 +4,8 @@ import requireAdminAuth from "../../middleware/requireAdminAuth.js";
 import imgUploadHandler from "../../middleware/imgUploadHandler.js";
 import storage from "../../config/storage.js";
 import { STORAGE_OPTIONS } from "../../../../const/storageOptions.js";
-import User from "../../models/User.js";
+import User, { hashPassword } from "../../models/User.js";
+import { userPutSchema } from "../../validators/user-validator.js";
 
 const router = Router();
 
@@ -19,9 +20,33 @@ router.get("/me", requireJWTAuth, (req, res) => {
   res.json({ me });
 });
 
-// PUT - api/users/me - change user info
+// PATCH - api/users/me - change user info
+router.patch("/me", requireJWTAuth, async (req, res) => {
+  const { error } = userPutSchema.validate(req.body);
+  if (error) return res.status(422).send({ message: error.details[0].message });
+
+  try {
+    const { name, email, password } = req.body;
+
+    req.user.name = name;
+    if (req.user.provider === "email") {
+      if (email) req.user.email = email;
+      if (password) {
+        const newHash = await hashPassword(password);
+        req.user.password = newHash;
+      }
+    }
+
+    await req.user.save();
+    res.send(req.user);
+  } catch (e) {
+    res.status(500).send({ message: "Couldn't change user info" });
+  }
+});
+
+// PUT - api/users/me/avatar - change user avatar
 router.put(
-  "/me",
+  "/me/avatar",
   requireJWTAuth,
   imgUploadHandler.single("avatar"),
   async (req, res) => {
