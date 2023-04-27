@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { CATEGORIES } from "../../../const/categories.js";
+import storage from "../config/storage.js";
 
 const productImgSchema = new mongoose.Schema({
   path: {
@@ -50,6 +51,23 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Delete product imgs from storage before product deletion
+productSchema.pre("findOneAndDelete", async function (next) {
+  const query = this;
+  const product = await query.cursor().next();
+  if (product.imgs.length > 0) {
+    try {
+      for (const img of product.imgs) {
+        await storage.file(img.path).delete();
+      }
+    } catch (e) {
+      console.log(e);
+      throw new Error("Couldn't delete imgs");
+    }
+  }
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 

@@ -151,4 +151,24 @@ router.put(
   }
 );
 
+// DELETE api/products/:id - delete img
+router.delete("/:id", requireJWTAuth, async (req, res) => {
+  const product = await Product.findOne({
+    _id: req.params.id,
+    owner: req.user._id,
+  });
+  if (!product)
+    return res
+      .status(404)
+      .send({ message: "You do not have product with such id" });
+
+  try {
+    await Product.findByIdAndDelete(product._id);
+    res.send(product);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({ message: e.message });
+  }
+});
+
 export default router;
