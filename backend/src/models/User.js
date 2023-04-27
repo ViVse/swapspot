@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { STORAGE_OPTIONS } from "../../../const/index.js";
 import storage from "../config/storage.js";
+import Product from "./Product.js";
 
 const avatarSchema = new mongoose.Schema({
   storage: {
@@ -87,6 +88,12 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+userSchema.virtual("products", {
+  ref: "Product",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
@@ -153,8 +160,15 @@ export async function hashPassword(password) {
 userSchema.pre("findOneAndDelete", async function (next) {
   const query = this;
   const user = await query.cursor().next();
+
+  // delete avatar
   if (user.avatar && user.avatar.storage === STORAGE_OPTIONS.CLOUD) {
     await storage.file(user.avatar.path).delete();
+  }
+  // delete products
+  await user.populate("products");
+  for (const product of user.products) {
+    await Product.findByIdAndDelete(product._id);
   }
   next();
 });
