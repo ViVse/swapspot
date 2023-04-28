@@ -8,9 +8,9 @@ import { fileURLToPath } from "url";
 
 import connectDB from "./db/db.js";
 import routes from "./routes/index.js";
-import useJWTStategy from "./config/passport/jwtStrategy.js";
-import useGoogleStrategy from "./config/passport/googleStrategy.js";
-import useLocalStrategy from "./config/passport/localStrategy.js";
+import useJWTStategy from "./auth/jwtStrategy.js";
+import useGoogleStrategy from "./auth/googleStrategy.js";
+import useLocalStrategy from "./auth/localStrategy.js";
 
 // Load confg
 dotenv.config({ path: "./src/config/config.env" });

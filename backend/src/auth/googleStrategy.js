@@ -1,7 +1,7 @@
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 
-import User from "../../models/User.js";
-import { STORAGE_OPTIONS } from "../../../../const/storageOptions.js";
+import User from "../models/User.js";
+import { STORAGE_OPTIONS } from "../../../const/storageOptions.js";
 
 export default function useGoogleStrategy(passport) {
   const serverUrl = process.env.SERVER_URL;
