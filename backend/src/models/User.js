@@ -5,40 +5,6 @@ import { STORAGE_OPTIONS } from "../../../const/index.js";
 import storage from "../config/storage.js";
 import Product from "./Product.js";
 
-const avatarSchema = new mongoose.Schema({
-  storage: {
-    type: String,
-    required: true,
-    enum: Object.values(STORAGE_OPTIONS),
-  },
-  path: {
-    type: String,
-    required: [
-      function () {
-        return this.type === STORAGE_OPTIONS.CLOUD;
-      },
-      "Path must be provided for cloud stored data",
-    ],
-  },
-  publicUrl: {
-    type: String,
-    required: true,
-  },
-});
-
-const ratingSchema = new mongoose.Schema({
-  from: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "User",
-  },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5,
-  },
-});
-
 const userSchema = new mongoose.Schema(
   {
     provider: {
@@ -63,10 +29,42 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 60,
     },
-    avatar: avatarSchema,
+    avatar: {
+      storage: {
+        type: String,
+        required: true,
+        enum: Object.values(STORAGE_OPTIONS),
+      },
+      path: {
+        type: String,
+        required: [
+          function () {
+            return this.type === STORAGE_OPTIONS.CLOUD;
+          },
+          "Path must be provided for cloud stored data",
+        ],
+      },
+      publicUrl: {
+        type: String,
+        required: true,
+      },
+    },
     role: { type: String, default: "USER" },
     raitings: {
-      type: [ratingSchema],
+      type: [
+        {
+          from: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "User",
+          },
+          rating: {
+            type: Number,
+            min: 0,
+            max: 5,
+          },
+        },
+      ],
     },
     favorites: {
       type: [mongoose.Schema.Types.ObjectId],

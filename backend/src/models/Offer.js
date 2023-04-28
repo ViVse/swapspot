@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 import { OFFER_STATUS } from "../../../const";
 
 const offerSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Product",
+  to: {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    products: {
+      type: [mongoose.Schema.Types.ObjectId],
+      required: true,
+      ref: "Product",
+    },
   },
   from: {
     user: {

@@ -2,17 +2,6 @@ import mongoose from "mongoose";
 import { CATEGORIES } from "../../../const/categories.js";
 import storage from "../config/storage.js";
 
-const productImgSchema = new mongoose.Schema({
-  path: {
-    type: String,
-    required: [true, "Path must be provided for cloud stored data"],
-  },
-  publicUrl: {
-    type: String,
-    required: true,
-  },
-});
-
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -32,7 +21,18 @@ const productSchema = new mongoose.Schema(
       required: [true, "can't be blank"],
     },
     imgs: {
-      type: [productImgSchema],
+      type: [
+        {
+          path: {
+            type: String,
+            required: [true, "Path must be provided for cloud stored data"],
+          },
+          publicUrl: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
     },
     tags: {
       type: [String],
