@@ -6,6 +6,8 @@ import storage from "../../config/storage.js";
 import { STORAGE_OPTIONS } from "../../../../const/storageOptions.js";
 import User, { hashPassword } from "../../models/User.js";
 import { userPutSchema } from "../../validators/user-validator.js";
+import Product from "../../models/Product.js";
+import { isValidObjectId } from "mongoose";
 
 const router = Router();
 
@@ -100,15 +102,57 @@ router.delete("/me", requireJWTAuth, async (req, res) => {
   res.send(user);
 });
 
-//GET - api/users/:id - get user info
-router.get("/:id", async (req, res) => {
-  const user = await User.findById(req.params.id);
-  res.send(user);
+// GET - api/users/favorite - get favorite products
+router.get("/favorite", requireJWTAuth, async (req, res) => {
+  await req.user.populate("favorites");
+  res.send({ favorites: req.user.favorites });
+});
+
+// PATCH - api/users/favorite/:productId - change favorite products
+router.patch("/favorite/:productId", requireJWTAuth, async (req, res) => {
+  if (!isValidObjectId(req.params.productId)) {
+    return res.status(400).send({ message: "Not valid id" });
+  }
+
+  const product = await Product.findOne({
+    _id: req.params.productId,
+    owner: {
+      $ne: req.user._id,
+    },
+  });
+
+  if (!product) {
+    return res.status(404).send({ message: "No product with that id" });
+  }
+
+  if (req.user.favorites.includes(req.params.productId)) {
+    req.user.favorites = req.user.favorites.filter(
+      (item) => item.toString() !== req.params.productId
+    );
+  } else {
+    req.user.favorites = [...req.user.favorites, req.params.productId];
+  }
+
+  await req.user.save();
+  await req.user.populate("favorites");
+  res.send({ favorites: req.user.favorites });
 });
 
 // GET - api/users/admin - route available only for admin
 router.get("/admin", requireJWTAuth, requireAdminAuth, (req, res) => {
   res.send("Welcome admin");
+});
+
+// GET - api/users/:id - get user info
+router.get("/:id", async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).send({ message: "Not valid id" });
+  }
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return res.status(404).send({ message: "User not found" });
+  }
+  res.send(user);
 });
 
 export default router;

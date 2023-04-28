@@ -3,6 +3,7 @@ import requireJWTAuth from "../../middleware/requireJWTAuth.js";
 import Product from "../../models/Product.js";
 import { productSchema } from "../../validators/product-validator.js";
 import { CATEGORIES } from "../../../../const/categories.js";
+import { isValidObjectId } from "mongoose";
 import imgUploadHandler from "../../middleware/imgUploadHandler.js";
 import storage from "../../config/storage.js";
 
@@ -78,6 +79,9 @@ router.post("/", requireJWTAuth, async (req, res) => {
 
 // GET api/products/:id - get product by id
 router.get("/:id", async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).send({ message: "Not valid id" });
+  }
   try {
     const product = await Product.findById(req.params.id);
 
@@ -90,6 +94,9 @@ router.get("/:id", async (req, res) => {
 
 // PUT api/products/:id - change product info
 router.put("/:id", requireJWTAuth, async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).send({ message: "Not valid id" });
+  }
   const { error } = productSchema.validate(req.body);
   if (error) return res.status(422).send({ message: error.details[0].message });
 
@@ -122,6 +129,9 @@ router.put(
   requireJWTAuth,
   imgUploadHandler.array("productImgs[]"),
   async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).send({ message: "Not valid id" });
+    }
     // Determin whether logged in user is an owner
     const product = await Product.findOne({
       _id: req.params.id,
@@ -188,6 +198,9 @@ router.put(
 
 // DELETE api/products/:id - delete img
 router.delete("/:id", requireJWTAuth, async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).send({ message: "Not valid id" });
+  }
   const product = await Product.findOne({
     _id: req.params.id,
     owner: req.user._id,

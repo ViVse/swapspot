@@ -35,6 +35,8 @@ GET /api/users/:id
 
 GET api/products
 POST api/products
+GET - api/users/favorite
+PATCH - api/users/favorite/:productId
 GET api/products/:id
 PUT api/products/:id
 PUT api/products/:id/imgs
