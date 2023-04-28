@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { STORAGE_OPTIONS } from "../../../const/index.js";
-import storage from "../config/storage.js";
+import storage from "../storage/storage.js";
 import Product from "./Product.js";
 
 const userSchema = new mongoose.Schema(

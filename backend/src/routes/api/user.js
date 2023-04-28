@@ -2,7 +2,7 @@ import { Router } from "express";
 import requireJWTAuth from "../../middleware/requireJWTAuth.js";
 import requireAdminAuth from "../../middleware/requireAdminAuth.js";
 import imgUploadHandler from "../../middleware/imgUploadHandler.js";
-import storage from "../../config/storage.js";
+import storage from "../../storage/storage.js";
 import { STORAGE_OPTIONS } from "../../../../const/storageOptions.js";
 import User, { hashPassword } from "../../models/User.js";
 import { userPutSchema } from "../../validators/user-validator.js";

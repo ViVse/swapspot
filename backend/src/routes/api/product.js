@@ -5,7 +5,7 @@ import { productSchema } from "../../validators/product-validator.js";
 import { CATEGORIES } from "../../../../const/categories.js";
 import { isValidObjectId } from "mongoose";
 import imgUploadHandler from "../../middleware/imgUploadHandler.js";
-import storage from "../../config/storage.js";
+import storage from "../../storage/storage.js";
 
 const router = Router();
 

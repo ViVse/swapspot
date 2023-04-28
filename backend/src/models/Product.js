@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { CATEGORIES } from "../../../const/categories.js";
-import storage from "../config/storage.js";
+import storage from "../storage/storage.js";
 
 const productSchema = new mongoose.Schema(
   {
