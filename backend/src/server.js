@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import connectDB from "./config/db.js";
+import connectDB from "./db/db.js";
 import routes from "./routes/index.js";
 import useJWTStategy from "./config/passport/jwtStrategy.js";
 import useGoogleStrategy from "./config/passport/googleStrategy.js";
