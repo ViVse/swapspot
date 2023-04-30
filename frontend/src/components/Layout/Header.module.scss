@@ -1,4 +1,7 @@
 .Header {
+  margin: 0 !important;
+  padding: 0.625rem 0;
+
   & > div {
     display: flex;
     flex-direction: column;
