@@ -1,0 +1,14 @@
+.Header {
+  & > div {
+    display: flex;
+    flex-direction: column;
+
+    & > div:last-child {
+      margin-top: 16px;
+      padding: 12px;
+      width: 100%;
+      border-top: 1px solid #014451;
+      border-bottom: 1px solid #014451;
+    }
+  }
+}

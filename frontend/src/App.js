@@ -1,9 +1,9 @@
-import { Alert } from "flowbite-react";
+import Header from "./components/Layout/Header";
 
 function App() {
   return (
-    <div className="App">
-      <Alert color="info">Test</Alert>
+    <div>
+      <Header />
     </div>
   );
 }

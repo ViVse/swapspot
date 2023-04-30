@@ -1,0 +1,81 @@
+import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import categories from "../../const/categories";
+import HoverDropdown from "../UI/HoverDropdown";
+
+import styles from "./Header.module.scss";
+
+const Header = () => {
+  return (
+    <div className="container mx-auto">
+      <Navbar fluid={true} rounded={true} className={styles.Header}>
+        <div className="flex w-full justify-between px-3.5">
+          <div className="flex items-center">
+            <Navbar.Brand href="/">
+              <span className="self-center whitespace-nowrap text-2xl font-semibold text-green-400">
+                SwapSpot
+              </span>
+            </Navbar.Brand>
+            <input
+              className="ml-5 border border-solid h-9 rounded-lg w-80 px-3 outline-1 caret-green-400 focus-visible:!outline-green-400"
+              placeholder="Що шукаєте?"
+            />
+          </div>
+          <div className="flex">
+            <Dropdown
+              arrowIcon={false}
+              inline={true}
+              label={
+                <Avatar
+                  alt="User settings"
+                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  rounded={true}
+                />
+              }>
+              <Dropdown.Header>
+                <span className="block text-sm font-semibold text-teal-900">
+                  Іван Іщенко
+                </span>
+                <span className="block truncate text-sm font-medium">
+                  name@flowbite.com
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>Мій профіль</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>Бажане</Dropdown.Item>
+              <Dropdown.Item>Мої оголошення</Dropdown.Item>
+              <Dropdown.Item>Пропозиції</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>Вихід</Dropdown.Item>
+            </Dropdown>
+            <Navbar.Toggle className="ml-2" />
+          </div>
+        </div>
+        <Navbar.Collapse>
+          {Object.keys(categories).map((cat) =>
+            !categories[cat].sub_categories ? (
+              <Navbar.Link
+                className="hover:!text-green-400"
+                href={`/search?category=${categories[cat].name}`}>
+                {categories[cat].name}
+              </Navbar.Link>
+            ) : (
+              <HoverDropdown
+                label={categories[cat].name}
+                href={`/search?category=${categories[cat].name}`}>
+                {Object.values(categories[cat].sub_categories).map((sub) => (
+                  <Navbar.Link
+                    className="hover:!text-green-400"
+                    href={`/search?category=${sub}`}>
+                    {sub}
+                  </Navbar.Link>
+                ))}
+              </HoverDropdown>
+            )
+          )}
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
+  );
+};
+
+export default Header;
