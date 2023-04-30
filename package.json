@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "front": "cd ./frontend && npm start",
     "server": "cd ./backend && npm run dev"
   },
   "keywords": [],
