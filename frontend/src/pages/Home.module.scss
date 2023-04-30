@@ -1,0 +1,22 @@
+.Baner {
+  h1 {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    animation: baner 20s infinite linear;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 16rem);
+  grid-gap: 1rem;
+  justify-content: space-between;
+}
+
+@keyframes baner {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
