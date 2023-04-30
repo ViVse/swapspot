@@ -17,11 +17,7 @@ export default function HoverDropdown(props) {
           className={`absolute left-0 bg-white top-5 w-40 top-10 md:top-5 pt-2 z-20 rounded-lg shadow-xl ${
             open ? "block" : "hidden"
           }`}>
-          {props.children.map((el) => (
-            <li className="flex w-full items-center px-5 py-2 text-sm hover:bg-gray-100">
-              {el}
-            </li>
-          ))}
+          {props.children}
         </ul>
       </div>
     </div>

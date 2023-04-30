@@ -54,6 +54,7 @@ const Header = () => {
           {Object.keys(categories).map((cat) =>
             !categories[cat].sub_categories ? (
               <Navbar.Link
+                key={categories[cat].name}
                 className="hover:!text-green-400"
                 href={`/search?category=${categories[cat].name}`}>
                 {categories[cat].name}
@@ -64,7 +65,8 @@ const Header = () => {
                 href={`/search?category=${categories[cat].name}`}>
                 {Object.values(categories[cat].sub_categories).map((sub) => (
                   <Navbar.Link
-                    className="hover:!text-green-400"
+                    key={sub}
+                    className="hover:!text-green-400 flex w-full items-center !px-5 !py-2 text-sm hover:bg-gray-100"
                     href={`/search?category=${sub}`}>
                     {sub}
                   </Navbar.Link>
