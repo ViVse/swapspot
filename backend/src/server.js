@@ -22,7 +22,24 @@ connectDB();
 const app = express();
 
 // Middlewares
-app.use(cors());
+var whitelist = [
+  process.env.CLIENT_URL,
+  process.env.SERVER_URL,
+  "http://localhost:3000",
+  "http://192.168.0.106:5000",
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
