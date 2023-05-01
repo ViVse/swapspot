@@ -7,7 +7,7 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <div>
+    <div className="container mx-auto px-4">
       <Navbar fluid={true} rounded={true} className={styles.Header}>
         <div className="flex w-full justify-between pt-2 px-3.5">
           <div className="flex items-center">

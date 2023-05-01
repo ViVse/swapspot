@@ -57,6 +57,7 @@ const Login = () => {
         <div className="mt-3">
           <Input
             className="w-72"
+            type="password"
             label="Пароль"
             value={passwordValue}
             hasError={passwordHasError}

@@ -6,7 +6,7 @@ import styles from "./Home.module.scss";
 const Home = () => {
   useEffect(() => {}, []);
   return (
-    <section>
+    <section className="container mx-auto px-4 mb-20">
       <div
         className={`h-80 overflow-hidden w-full bg-gradient-to-r from-green-400 to-teal-900 flex items-center ${styles.Baner}`}>
         <h1 className="text-9xl font-black text-white whitespace-nowrap">
