@@ -3,13 +3,26 @@ import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
 
 import styles from "./Home.module.scss";
+import { Pagination } from "flowbite-react";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [totalPages, setTotalPages] = useState(1);
+  const curPage = searchParams.get("page") || 1;
+  const limit = 2;
 
   useEffect(() => {
-    axios.get("api/products").then((res) => setProducts(res.data.products));
-  }, []);
+    axios.get(`api/products?page=${curPage - 1}&limit=${limit}`).then((res) => {
+      setProducts(res.data.products);
+      setTotalPages(Math.ceil(res.data.total / limit));
+    });
+  }, [curPage]);
+
+  const pageChangeHandler = (page) => {
+    setSearchParams({ page });
+  };
 
   return (
     <section className="container mx-auto px-4 mb-20">
@@ -39,6 +52,14 @@ const Home = () => {
             />
           ))}
         </div>
+        {totalPages > 1 && (
+          <Pagination
+            className={styles.pagination}
+            currentPage={curPage}
+            totalPages={totalPages}
+            onPageChange={pageChangeHandler}
+          />
+        )}
       </div>
     </section>
   );
