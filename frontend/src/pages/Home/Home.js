@@ -14,10 +14,14 @@ const Home = () => {
   const limit = 2;
 
   useEffect(() => {
-    axios.get(`api/products?page=${curPage - 1}&limit=${limit}`).then((res) => {
-      setProducts(res.data.products);
-      setTotalPages(Math.ceil(res.data.total / limit));
-    });
+    axios
+      .get(
+        `api/products?page=${curPage - 1}&limit=${limit}&sortBy=createdAt_desc`
+      )
+      .then((res) => {
+        setProducts(res.data.products);
+        setTotalPages(Math.ceil(res.data.total / limit));
+      });
   }, [curPage]);
 
   const pageChangeHandler = (page) => {
