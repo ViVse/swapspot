@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 16rem);
+  grid-gap: 1rem;
+  justify-content: space-between;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+
+  li {
+    font-weight: 500;
+    font-size: 16px;
+
+    button {
+      color: black;
+      @apply border-green-400;
+    }
+  }
+
+  [aria-current]:not([aria-current="false"]) {
+    button {
+      @apply bg-green-400;
+      @apply text-white;
+    }
+  }
+}
