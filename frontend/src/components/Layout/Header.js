@@ -4,6 +4,7 @@ import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
+import { Link } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 
@@ -15,11 +16,11 @@ const Header = () => {
       <Navbar fluid={true} rounded={true} className={styles.Header}>
         <div className="flex w-full justify-between pt-2 px-3.5">
           <div className="flex items-center">
-            <Navbar.Brand href="/">
+            <Link to="/">
               <span className="self-center whitespace-nowrap text-2xl font-semibold text-green-400">
                 SwapSpot
               </span>
-            </Navbar.Brand>
+            </Link>
             <input
               className="ml-5 border border-solid h-9 rounded-lg w-80 px-3 outline-1 caret-green-400 focus-visible:!outline-green-400"
               placeholder="Що шукаєте?"
@@ -28,16 +29,16 @@ const Header = () => {
           <div className="flex items-center list-none">
             {!user && (
               <>
-                <Navbar.Link
-                  href="login"
+                <Link
+                  to="login"
                   className="!pr-2 text-green-600 font-medium hover:!text-teal-900">
                   Вхід
-                </Navbar.Link>
-                <Navbar.Link
-                  href="signup"
+                </Link>
+                <Link
+                  to="signup"
                   className="!border-s-2 border-solid border-teal-900 !pl-2 text-teal-600 font-medium hover:!text-teal-900">
                   Реєстрація
-                </Navbar.Link>
+                </Link>
               </>
             )}
             {user && (
@@ -78,7 +79,9 @@ const Header = () => {
                   <Dropdown.Item>Мій профіль</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Бажане</Dropdown.Item>
-                  <Dropdown.Item>Мої оголошення</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to="my-products">Мої оголошення</Link>
+                  </Dropdown.Item>
                   <Dropdown.Item>Пропозиції</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={logout}>Вихід</Dropdown.Item>
@@ -91,24 +94,24 @@ const Header = () => {
         <Navbar.Collapse>
           {Object.keys(categories).map((cat) =>
             !categories[cat].sub_categories ? (
-              <Navbar.Link
+              <Link
                 key={categories[cat].name}
                 className="hover:!text-green-400"
-                href={`/search?category=${categories[cat].name}`}>
+                to={`/search?category=${categories[cat].name}`}>
                 {categories[cat].name}
-              </Navbar.Link>
+              </Link>
             ) : (
               <HoverDropdown
                 key={categories[cat].name}
                 label={categories[cat].name}
-                href={`/search?category=${categories[cat].name}`}>
+                to={`/search?category=${categories[cat].name}`}>
                 {Object.values(categories[cat].sub_categories).map((sub) => (
-                  <Navbar.Link
+                  <Link
                     key={sub}
                     className="hover:!text-green-400 flex w-full items-center !px-5 !py-2 text-sm hover:bg-gray-100"
-                    href={`/search?category=${sub}`}>
+                    to={`/search?category=${sub}`}>
                     {sub}
-                  </Navbar.Link>
+                  </Link>
                 ))}
               </HoverDropdown>
             )

@@ -1,4 +1,4 @@
-import { Navbar } from "flowbite-react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function HoverDropdown(props) {
@@ -7,12 +7,12 @@ export default function HoverDropdown(props) {
   return (
     <div className={`flex justify-center ${props.className}`}>
       <div onMouseLeave={() => setOpen(false)} className="relative sm:w-full">
-        <Navbar.Link
+        <Link
           className="mr-4 hover:!text-green-400"
           onMouseOver={() => setOpen(true)}
-          href={props.href}>
+          to={props.href}>
           {props.label}
-        </Navbar.Link>
+        </Link>
         <ul
           className={`absolute left-0 bg-white top-5 w-40 top-10 md:top-5 pt-2 z-20 rounded-lg shadow-xl ${
             open ? "block" : "hidden"
