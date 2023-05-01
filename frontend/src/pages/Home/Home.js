@@ -5,7 +5,7 @@ import styles from "./Home.module.scss";
 
 const Home = () => {
   const { products } = useLoaderData();
-  console.log(products);
+
   return (
     <section className="container mx-auto px-4 mb-20">
       <div
@@ -18,13 +18,21 @@ const Home = () => {
       <div className="mt-10 font-bold text-3xl">
         <h1>Нові оголошення</h1>
         <div className={`mt-2.5 ${styles.grid}`}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products.map((product) => (
+            <ProductCard
+              key={product._id}
+              id={product._id}
+              img={
+                product.imgs?.length > 0
+                  ? product.imgs[0].publicUrl
+                  : "https://www.apple.com/v/apple-watch-se/k/images/overview/hero/hero__w8w7dclctnmi_large.jpg"
+              }
+              name={product.name}
+              tags={product.tags}
+              location={product.location}
+              createdAt={product.createdAt}
+            />
+          ))}
         </div>
       </div>
     </section>
