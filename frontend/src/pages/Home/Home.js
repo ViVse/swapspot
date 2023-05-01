@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import ProductCard from "../../components/Product/ProductCard";
 
 import styles from "./Home.module.scss";
 
 const Home = () => {
-  useEffect(() => {}, []);
+  const { products } = useLoaderData();
+  console.log(products);
   return (
     <section className="container mx-auto px-4 mb-20">
       <div
