@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ProductCard from "../components/Product/ProductCard";
+import ProductCard from "../../components/Product/ProductCard";
 
 import styles from "./Home.module.scss";
 

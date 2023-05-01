@@ -1,13 +1,13 @@
 import Header from "./components/Layout/Header";
-import Home from "./pages/Home";
 import Footer from "./components/Layout/Footer";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <>
       <div className="container mx-auto px-4">
         <Header />
-        <Home />
+        <Login />
       </div>
       <Footer />
     </>
