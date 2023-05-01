@@ -1,5 +1,3 @@
-import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
 import { RouterProvider } from "react-router-dom";
 import loggedRouter from "./router/logged-router";
 import guestRouter from "./router/guest-router";
@@ -11,9 +9,7 @@ function App() {
 
   return (
     <>
-      <Header />
       <RouterProvider router={user ? loggedRouter : guestRouter} />
-      <Footer />
     </>
   );
 }
