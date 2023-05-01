@@ -14,4 +14,19 @@
       border-bottom: 1px solid #014451;
     }
   }
+
+  .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: white;
+    background: rgb(164, 0, 0);
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

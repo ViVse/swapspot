@@ -1,6 +1,7 @@
-import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import { Navbar, Dropdown, Avatar, Button } from "flowbite-react";
 import categories from "../../const/categories";
 import HoverDropdown from "../UI/HoverDropdown";
+import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 
 import styles from "./Header.module.scss";
 
@@ -8,7 +9,7 @@ const Header = () => {
   return (
     <div>
       <Navbar fluid={true} rounded={true} className={styles.Header}>
-        <div className="flex w-full justify-between px-3.5">
+        <div className="flex w-full justify-between pt-2 px-3.5">
           <div className="flex items-center">
             <Navbar.Brand href="/">
               <span className="self-center whitespace-nowrap text-2xl font-semibold text-green-400">
@@ -20,7 +21,18 @@ const Header = () => {
               placeholder="Що шукаєте?"
             />
           </div>
-          <div className="flex">
+          <div className="flex items-center">
+            <Button className="bg-teal-900 font-medium hover:bg-teal-700 mr-4">
+              Додати оголошення
+            </Button>
+            <div className="relative mr-4">
+              <BsBellFill className="fill-teal-900 w-7 h-7" />
+              <span className={styles.badge}>1</span>
+            </div>
+            <div className="relative mr-4">
+              <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
+              <span className={styles.badge}>1</span>
+            </div>
             <Dropdown
               arrowIcon={false}
               inline={true}
