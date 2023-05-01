@@ -25,7 +25,7 @@ const Home = () => {
               img={
                 product.imgs?.length > 0
                   ? product.imgs[0].publicUrl
-                  : "https://www.apple.com/v/apple-watch-se/k/images/overview/hero/hero__w8w7dclctnmi_large.jpg"
+                  : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
               }
               name={product.name}
               tags={product.tags}
