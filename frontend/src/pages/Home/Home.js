@@ -1,10 +1,15 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
+import axios from "../../config/axios";
 
 import styles from "./Home.module.scss";
 
 const Home = () => {
-  const { products } = useLoaderData();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("api/products").then((res) => setProducts(res.data));
+  }, []);
 
   return (
     <section className="container mx-auto px-4 mb-20">

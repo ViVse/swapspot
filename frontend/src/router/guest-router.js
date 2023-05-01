@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
-import { loadAllProducts } from "../loaders/productLoader";
 
 const guestRouter = createBrowserRouter([
   {
@@ -12,7 +11,6 @@ const guestRouter = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: loadAllProducts,
   },
 ]);
 
