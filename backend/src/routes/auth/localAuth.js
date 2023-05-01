@@ -9,9 +9,9 @@ router.post("/login", requireLocalAuth, (req, res) => {
   const token = req.user.generateJWT();
   const me = req.user.toJSON();
   res.cookie("x-auth-token", token, {
-    maxAge: 2 * 24 * 60 * 60 * 1000, //2 days
+    maxAge: 2 * 24 * 60 * 60 * 1000,
   });
-  res.json({ me });
+  res.send({ me, token });
 });
 
 router.post("/register", async (req, res, next) => {
