@@ -14,7 +14,7 @@ const router = Router();
 // ?owner=ownerID
 // ?category=categoryName
 // ?location=locationName
-// ?skip=number
+// ?page=number
 // ?limit=number
 // ?orderBy=fieldName_[asc|desc]
 router.get("/", async (req, res) => {
@@ -50,12 +50,23 @@ router.get("/", async (req, res) => {
     sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
   }
 
+  const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+  const limit = parseInt(req.query.limit) || 3;
+
   const products = await Product.find(match, null, {
-    skip: parseInt(req.query.skip),
-    limit: parseInt(req.query.limit),
+    skip: page * limit,
+    limit,
     sort,
   });
-  res.send(products);
+
+  const count = await Product.countDocuments(match);
+
+  res.send({
+    total: count,
+    page: page,
+    pageSize: products.length,
+    products,
+  });
 });
 
 // POST api/products - create product
