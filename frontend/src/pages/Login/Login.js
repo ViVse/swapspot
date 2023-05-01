@@ -4,6 +4,7 @@ import Input from "../../components/UI/Input";
 import { Button } from "flowbite-react";
 import { notEmptyRule } from "../../utils/inputValidationRules";
 import { IoLogoGoogle } from "react-icons/io";
+import axios from "../../config/axios";
 
 import styles from "./Login.module.scss";
 
@@ -26,13 +27,25 @@ const Login = () => {
     reset: resetPassword,
   } = useInput(notEmptyRule);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     if (!emailIsValid || !passwordIsValid) return;
 
+    const res = await axios.post("auth/login", {
+      email: emailValue,
+      password: passwordValue,
+    });
+
+    const { me } = res.data;
+    console.log(me);
+
     resetEmail();
     resetPassword();
+  };
+
+  const googleAuthHandler = () => {
+    window.location.href = `${process.env.REACT_APP_SERVER_URL}auth/google`;
   };
 
   return (
@@ -77,8 +90,9 @@ const Login = () => {
             Увійти
           </Button>
           <Button
-            className="bg-white border border-solid border-teal-900 !text-teal-900 font-medium hover:bg-green-300 mt-3"
-            type="button">
+            className="bg-white border border-solid !border-teal-900 !text-teal-900 font-medium hover:bg-green-300 mt-3"
+            type="button"
+            onClick={googleAuthHandler}>
             <IoLogoGoogle className="mr-2" /> Увійти через Google
           </Button>
         </div>
