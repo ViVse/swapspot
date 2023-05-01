@@ -2,15 +2,13 @@ import { Navbar, Dropdown, Avatar, Button } from "flowbite-react";
 import categories from "../../const/categories";
 import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
-
-import styles from "./Header.module.scss";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 
-const Header = () => {
-  const context = useContext(AuthContext);
+import styles from "./Header.module.scss";
 
-  console.log(context.user);
+const Header = () => {
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="container mx-auto px-4">
@@ -27,44 +25,66 @@ const Header = () => {
               placeholder="Що шукаєте?"
             />
           </div>
-          <div className="flex items-center">
-            <Button className="bg-teal-900 font-medium hover:bg-teal-700 mr-4">
-              Додати оголошення
-            </Button>
-            <div className="relative mr-4">
-              <BsBellFill className="fill-teal-900 w-7 h-7" />
-              <span className={styles.badge}>1</span>
-            </div>
-            <div className="relative mr-4">
-              <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
-              <span className={styles.badge}>1</span>
-            </div>
-            <Dropdown
-              arrowIcon={false}
-              inline={true}
-              label={
-                <Avatar
-                  alt="User settings"
-                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  rounded={true}
-                />
-              }>
-              <Dropdown.Header>
-                <span className="block text-sm font-semibold text-teal-900">
-                  Іван Іщенко
-                </span>
-                <span className="block truncate text-sm font-medium">
-                  name@flowbite.com
-                </span>
-              </Dropdown.Header>
-              <Dropdown.Item>Мій профіль</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item>Бажане</Dropdown.Item>
-              <Dropdown.Item>Мої оголошення</Dropdown.Item>
-              <Dropdown.Item>Пропозиції</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={context.logout}>Вихід</Dropdown.Item>
-            </Dropdown>
+          <div className="flex items-center list-none">
+            {!user && (
+              <>
+                <Navbar.Link
+                  href="login"
+                  className="!pr-2 text-green-600 font-medium hover:!text-teal-900">
+                  Вхід
+                </Navbar.Link>
+                <Navbar.Link
+                  href="signup"
+                  className="!border-s-2 border-solid border-teal-900 !pl-2 text-teal-600 font-medium hover:!text-teal-900">
+                  Реєстрація
+                </Navbar.Link>
+              </>
+            )}
+            {user && (
+              <>
+                <Button className="bg-teal-900 font-medium hover:bg-teal-700 mr-4">
+                  Додати оголошення
+                </Button>
+                <div className="relative mr-4">
+                  <BsBellFill className="fill-teal-900 w-7 h-7" />
+                  <span className={styles.badge}>1</span>
+                </div>
+                <div className="relative mr-4">
+                  <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
+                  <span className={styles.badge}>1</span>
+                </div>
+                <Dropdown
+                  arrowIcon={false}
+                  inline={true}
+                  label={
+                    <Avatar
+                      alt="User settings"
+                      img={
+                        user.avatar
+                          ? user.avatar.publicUrl
+                          : "https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-512.png"
+                      }
+                      rounded={true}
+                    />
+                  }>
+                  <Dropdown.Header>
+                    <span className="block text-sm font-semibold text-teal-900">
+                      {user.name}
+                    </span>
+                    <span className="block truncate text-sm font-medium">
+                      {user.email}
+                    </span>
+                  </Dropdown.Header>
+                  <Dropdown.Item>Мій профіль</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>Бажане</Dropdown.Item>
+                  <Dropdown.Item>Мої оголошення</Dropdown.Item>
+                  <Dropdown.Item>Пропозиції</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={logout}>Вихід</Dropdown.Item>
+                </Dropdown>
+              </>
+            )}
             <Navbar.Toggle className="ml-2" />
           </div>
         </div>
