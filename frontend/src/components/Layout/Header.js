@@ -4,8 +4,14 @@ import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 
 import styles from "./Header.module.scss";
+import { useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
 const Header = () => {
+  const context = useContext(AuthContext);
+
+  console.log(context.user);
+
   return (
     <div className="container mx-auto px-4">
       <Navbar fluid={true} rounded={true} className={styles.Header}>
@@ -57,7 +63,7 @@ const Header = () => {
               <Dropdown.Item>Мої оголошення</Dropdown.Item>
               <Dropdown.Item>Пропозиції</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Вихід</Dropdown.Item>
+              <Dropdown.Item onClick={context.logout}>Вихід</Dropdown.Item>
             </Dropdown>
             <Navbar.Toggle className="ml-2" />
           </div>
