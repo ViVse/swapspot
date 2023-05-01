@@ -5,6 +5,7 @@ import morgan from "morgan";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import cors from "cors";
 
 import connectDB from "./db/db.js";
 import routes from "./routes/index.js";
@@ -21,6 +22,7 @@ connectDB();
 const app = express();
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
