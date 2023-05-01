@@ -6,12 +6,16 @@
   "type": "module",
   "scripts": {
     "front": "cd ./frontend && npm start",
-    "server": "cd ./backend && npm run dev"
+    "server": "cd ./backend && npm run dev",
+    "start": "concurrently \"npm run server\" \"npm run front\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
   }
 }

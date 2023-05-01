@@ -1,8 +1,7 @@
 import { Strategy as PassportLocalStrategy } from "passport-local";
-import Joi from "joi";
 
-import User from "../../models/User.js";
-import { loginSchema } from "../../validators/auth-validators.js";
+import User from "../models/User.js";
+import { loginSchema } from "../validators/auth-validators.js";
 
 export default function useLocalStrategy(passport) {
   const passportLogin = new PassportLocalStrategy(

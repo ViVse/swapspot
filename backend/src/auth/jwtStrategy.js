@@ -1,6 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 
-import User from "../../models/User.js";
+import User from "../models/User.js";
 
 export default function useJWTStrategy(passport) {
   const secretOrKey = process.env.JWT_SECRET;
