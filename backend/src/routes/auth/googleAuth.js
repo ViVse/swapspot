@@ -10,7 +10,7 @@ router.get(
   })
 );
 
-const clientUrl = process.env.CLIENT_URL || "google.com";
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5000";
 
 router.get(
   "/google/callback",
