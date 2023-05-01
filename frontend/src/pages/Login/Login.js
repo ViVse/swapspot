@@ -7,8 +7,15 @@ import { IoLogoGoogle } from "react-icons/io";
 import axios from "../../config/axios";
 
 import styles from "./Login.module.scss";
+import { useContext } from "react";
+import AuthContext from "../../store/auth-context";
+import { useNavigate } from "react-router-dom";
+import { setCookie } from "../../utils/cookie";
 
 const Login = () => {
+  const context = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const {
     value: emailValue,
     isValid: emailIsValid,
@@ -37,11 +44,14 @@ const Login = () => {
       password: passwordValue,
     });
 
-    const { me } = res.data;
-    console.log(me);
+    const { me, token } = res.data;
+    setCookie("x-auth-token", token, 2);
+    context.login(me);
 
     resetEmail();
     resetPassword();
+
+    navigate("/");
   };
 
   const googleAuthHandler = () => {
