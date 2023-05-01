@@ -73,6 +73,7 @@ const Header = () => {
               </Navbar.Link>
             ) : (
               <HoverDropdown
+                key={categories[cat].name}
                 label={categories[cat].name}
                 href={`/search?category=${categories[cat].name}`}>
                 {Object.values(categories[cat].sub_categories).map((sub) => (
