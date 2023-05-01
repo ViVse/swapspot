@@ -1,12 +1,16 @@
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
-import Login from "./pages/Login/Login";
+import { RouterProvider } from "react-router-dom";
+import loggedRouter from "./router/logged-router";
+import guestRouter from "./router/guest-router";
 
 function App() {
+  const loggedin = false;
+
   return (
     <>
       <Header />
-      <Login />
+      <RouterProvider router={loggedin ? loggedRouter : guestRouter} />
       <Footer />
     </>
   );
