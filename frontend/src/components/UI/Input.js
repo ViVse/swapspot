@@ -1,12 +1,17 @@
 const Input = (props) => {
-  const { label, type, name, handleChange, errorMessage, isValid, value } =
-    props;
+  const { label, type, name, onChange, onBlur, value } = props;
 
   return (
-    <div>
-      <label>{label}</label>
-      <input type={type} name={name} value={value} onChange={handleChange} />
-      {errorMessage && !isValid && <span>{errorMessage}</span>}
+    <div className={props.className}>
+      <label className="text-xl block font-medium text-teal-900">{label}</label>
+      <input
+        className="rounded-lg bg-gray-50 border border-solid h-10 w-60 px-2 border-teal-900 focus-visin:outline-teal-900"
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
     </div>
   );
 };
