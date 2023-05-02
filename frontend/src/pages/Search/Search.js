@@ -100,6 +100,9 @@ const Search = () => {
             </select>
           </div>
         </div>
+        {products.length === 0 && (
+          <h1 className="text-xl mt-7">По запиту нічого не знайдено</h1>
+        )}
         <div className={`mt-7 grid`}>
           {products.map((product) => (
             <ProductCard
