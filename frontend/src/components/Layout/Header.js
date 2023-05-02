@@ -1,5 +1,5 @@
 import { Navbar, Dropdown, Avatar, Button } from "flowbite-react";
-import {CATEGORIES} from "../../const/categories";
+import { CATEGORIES } from "../../const/categories";
 import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 import { useContext } from "react";
@@ -11,7 +11,7 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     value: searchValue,
@@ -21,7 +21,7 @@ const Header = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      navigate(`search?name=${searchValue}`)
+      navigate(`search?name=${searchValue}`);
       resetSearch();
     }
   };

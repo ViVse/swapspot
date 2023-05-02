@@ -10,7 +10,7 @@ export default function HoverDropdown(props) {
         <Link
           className="mr-4 hover:!text-green-400"
           onMouseOver={() => setOpen(true)}
-          to={props.href}>
+          to={props.to}>
           {props.label}
         </Link>
         <ul
