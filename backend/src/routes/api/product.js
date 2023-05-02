@@ -12,6 +12,7 @@ const router = Router();
 // GET api/products - get products
 // PARAMS:
 // ?owner=ownerID
+// ?name=name
 // ?category=categoryName
 // ?location=locationName
 // ?page=number
@@ -41,6 +42,11 @@ router.get("/", async (req, res) => {
   if (req.query.location) {
     const regx = new RegExp(`(${req.query.location})`, "i");
     match.location = regx;
+  }
+  //    Search by name
+  if (req.query.name) {
+    const regx = new RegExp(`(${req.query.name})`, "i");
+    match.name = regx;
   }
 
   // Configure sort
