@@ -13,16 +13,12 @@ const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const {
-    value: searchValue,
-    valueChangeHandler: searchChangeHandler,
-    reset: resetSearch,
-  } = useInput(() => {});
+  const { value: searchValue, valueChangeHandler: searchChangeHandler } =
+    useInput(() => {});
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       navigate(`search?name=${searchValue}`);
-      resetSearch();
     }
   };
 
