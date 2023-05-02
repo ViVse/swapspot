@@ -4,12 +4,27 @@ import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useInput from "../../hooks/use-input";
 
 import styles from "./Header.module.scss";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate()
+
+  const {
+    value: searchValue,
+    valueChangeHandler: searchChangeHandler,
+    reset: resetSearch,
+  } = useInput(() => {});
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      navigate(`search?name=${searchValue}`)
+      resetSearch();
+    }
+  };
 
   return (
     <div className="container mx-auto px-4">
@@ -24,6 +39,9 @@ const Header = () => {
             <input
               className="ml-5 border border-solid h-9 rounded-lg w-80 px-3 outline-1 caret-green-400 focus-visible:!outline-green-400"
               placeholder="Що шукаєте?"
+              value={searchValue}
+              onChange={searchChangeHandler}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="flex items-center list-none">
