@@ -3,11 +3,16 @@ import Home from "../pages/Home/Home";
 import MyProducts from "../pages/MyProducts/MyProducts";
 import Layout from "../components/Layout/Layout";
 import Favorite from "../pages/Favorite/Favorite";
+import Search from "../pages/Search/Search";
 
 const loggedRouter = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      {
+        path: "/search",
+        element: <Search />
+      },
       {
         path: "/favorite",
         element: <Favorite />,
