@@ -62,7 +62,9 @@ const Search = () => {
   return (
     <section className="container mx-auto px-4 mb-20">
       <div className="mt-5">
-        <h1 className="font-bold text-3xl">Пошук</h1>
+        <h1 className="font-bold text-3xl">
+          Пошук <span className="text-green-400">{name}</span>
+        </h1>
         <h2 className="font-semibold text-2xl">Фільтри та сортування</h2>
         <div className="flex">
           <div className="flex flex-col mt-2 text-xl text-gray-500 mr-5">
