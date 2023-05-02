@@ -1,5 +1,5 @@
 import { Navbar, Dropdown, Avatar, Button } from "flowbite-react";
-import categories from "../../const/categories";
+import {CATEGORIES} from "../../const/categories";
 import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
 import { useContext } from "react";
@@ -112,27 +112,29 @@ const Header = () => {
           </div>
         </div>
         <Navbar.Collapse>
-          {Object.keys(categories).map((cat) =>
-            !categories[cat].sub_categories ? (
+          {Object.keys(CATEGORIES.catEnumInfo).map((cat) =>
+            !CATEGORIES.catEnumInfo[cat].sub_categories ? (
               <Link
-                key={categories[cat].name}
+                key={CATEGORIES.catEnumInfo[cat].name}
                 className="hover:!text-green-400"
-                to={`/search?category=${categories[cat].name}`}>
-                {categories[cat].name}
+                to={`/search?category=${CATEGORIES.catEnumInfo[cat].name}`}>
+                {CATEGORIES.catEnumInfo[cat].name}
               </Link>
             ) : (
               <HoverDropdown
-                key={categories[cat].name}
-                label={categories[cat].name}
-                to={`/search?category=${categories[cat].name}`}>
-                {Object.values(categories[cat].sub_categories).map((sub) => (
-                  <Link
-                    key={sub}
-                    className="hover:!text-green-400 flex w-full items-center !px-5 !py-2 text-sm hover:bg-gray-100"
-                    to={`/search?category=${sub}`}>
-                    {sub}
-                  </Link>
-                ))}
+                key={CATEGORIES.catEnumInfo[cat].name}
+                label={CATEGORIES.catEnumInfo[cat].name}
+                to={`/search?category=${CATEGORIES.catEnumInfo[cat].name}`}>
+                {Object.values(CATEGORIES.catEnumInfo[cat].sub_categories).map(
+                  (sub) => (
+                    <Link
+                      key={sub}
+                      className="hover:!text-green-400 flex w-full items-center !px-5 !py-2 text-sm hover:bg-gray-100"
+                      to={`/search?category=${sub}`}>
+                      {sub}
+                    </Link>
+                  )
+                )}
               </HoverDropdown>
             )
           )}
