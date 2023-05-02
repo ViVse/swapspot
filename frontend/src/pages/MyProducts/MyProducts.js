@@ -28,6 +28,16 @@ const MyProducts = () => {
     setSearchParams({ page });
   };
 
+  const deleteHandler = (id) => {
+    axios
+      .delete(`api/products/${id}`)
+      .then((res) =>
+        setProducts((prev) =>
+          prev.filter((product) => product._id !== res.data._id)
+        )
+      );
+  };
+
   return (
     <section className="container mx-auto px-4 mb-20">
       <div className="font-bold text-3xl">
@@ -37,6 +47,8 @@ const MyProducts = () => {
             <ProductCard
               key={product._id}
               id={product._id}
+              delete={true}
+              onDelete={deleteHandler}
               img={
                 product.imgs?.length > 0
                   ? product.imgs[0].publicUrl

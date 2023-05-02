@@ -22,7 +22,10 @@ const ProductCard = (props) => {
           />
         ))}
       {props.delete && (
-        <AiFillDelete className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5" />
+        <AiFillDelete
+          className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5"
+          onClick={() => props.onDelete(props.id)}
+        />
       )}
       <img className="h-52 w-full object-cover" src={img} alt="name" />
       <div className="px-7 pb-5 pt-3">
