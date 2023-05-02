@@ -9,7 +9,8 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={user ? loggedRouter : guestRouter} />
+      {user && <RouterProvider router={loggedRouter} />}
+      {!user && <RouterProvider router={guestRouter} />}
     </>
   );
 }

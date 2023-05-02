@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import MyProducts from "../pages/MyProducts/MyProducts";
 import Layout from "../components/Layout/Layout";
@@ -20,7 +20,13 @@ const loggedRouter = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      { path: "/login", element: <Navigate to="/" replace={true} /> },
+      {
+        path: "*",
+        loader: function () {
+          redirect("/");
+          return null;
+        },
+      },
     ],
   },
 ]);
