@@ -8,7 +8,6 @@ const guestRouter = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      { path: "/login", element: <Login /> },
       {
         path: "/",
         element: <Home />,
