@@ -11,9 +11,15 @@ const ProductCard = (props) => {
     <Card className={`w-64 ${styles.ProductCard} relative`}>
       {props.like &&
         (isFavorite ? (
-          <AiFillHeart className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5" />
+          <AiFillHeart
+            className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5"
+            onClick={() => props.onLike(props.id)}
+          />
         ) : (
-          <AiOutlineHeart className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5" />
+          <AiOutlineHeart
+            className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5"
+            onClick={() => props.onLike(props.id)}
+          />
         ))}
       {props.delete && (
         <AiFillDelete className="absolute cursor-pointer top-5 fill-red-700 w-7 h-7 right-5" />

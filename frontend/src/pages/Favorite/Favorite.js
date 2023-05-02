@@ -11,6 +11,13 @@ const Favorite = () => {
     });
   }, []);
 
+  const likeHandler = (id) => {
+    console.log(id);
+    axios.patch(`api/users/favorite/${id}`).then((res) => {
+      setProducts(res.data.favorites);
+    });
+  };
+
   return (
     <section className="container mx-auto px-4 mb-20">
       <div className="font-bold text-3xl">
@@ -19,6 +26,9 @@ const Favorite = () => {
           {products.map((product) => (
             <ProductCard
               key={product._id}
+              like={true}
+              onLike={likeHandler}
+              isFavorite={true}
               id={product._id}
               img={
                 product.imgs?.length > 0
