@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
+import Pagination from "../../components/UI/Pagination";
+import { useSearchParams } from "react-router-dom";
 
 import styles from "./Home.module.scss";
-import { Pagination } from "flowbite-react";
-import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -58,7 +58,6 @@ const Home = () => {
         </div>
         {totalPages > 1 && (
           <Pagination
-            className={styles.pagination}
             currentPage={curPage}
             totalPages={totalPages}
             onPageChange={pageChangeHandler}

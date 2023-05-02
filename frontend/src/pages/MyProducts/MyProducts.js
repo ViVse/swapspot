@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
-import { Pagination } from "flowbite-react";
+import Pagination from "../../components/UI/Pagination";
 import { useSearchParams } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 
