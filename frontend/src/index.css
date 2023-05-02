@@ -20,3 +20,10 @@ code {
 button span {
   padding: 4px 10px !important;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 16rem);
+  grid-gap: 1rem;
+  justify-content: space-between;
+}

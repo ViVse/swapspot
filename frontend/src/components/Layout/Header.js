@@ -78,7 +78,9 @@ const Header = () => {
                   </Dropdown.Header>
                   <Dropdown.Item>Мій профіль</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item>Бажане</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to="favorite">Бажане</Link>
+                  </Dropdown.Item>
                   <Dropdown.Item>
                     <Link to="my-products">Мої оголошення</Link>
                   </Dropdown.Item>
