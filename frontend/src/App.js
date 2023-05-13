@@ -21,9 +21,6 @@ function App() {
 
   return (
     <>
-      {/* {user && <RouterProvider router={loggedRouter} />}
-      {!user && <RouterProvider router={guestRouter} />} */}
-
       <Router>
         <div className="min-h-screen flex flex-col">
           <Header />
