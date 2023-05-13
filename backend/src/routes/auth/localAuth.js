@@ -35,6 +35,10 @@ router.post("/register", async (req, res, next) => {
         email,
         password,
         username,
+        avatar: {
+          storage: "link",
+          publicUrl: "https://pmdoc.ua/wp-content/uploads/default-avatar.png",
+        },
         name,
       });
 
