@@ -4,6 +4,7 @@ import axios from "../../config/axios";
 import Pagination from "../../components/UI/Pagination";
 import { useSearchParams } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import { getCookie } from "../../utils/cookie";
 
 import styles from "./MyProducts.module.scss";
 
@@ -17,7 +18,14 @@ const MyProducts = () => {
 
   useEffect(() => {
     axios
-      .get(`api/products?page=${curPage - 1}&limit=${limit}&owner=${user._id}`)
+      .get(
+        `api/products?page=${curPage - 1}&limit=${limit}&owner=${user._id}`,
+        {
+          headers: {
+            "x-auth-token": getCookie("x-auth-token"),
+          },
+        }
+      )
       .then((res) => {
         setProducts(res.data.products);
         setTotalPages(Math.ceil(res.data.total / limit));

@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
+import { getCookie } from "../../utils/cookie";
 
 const Favorite = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`api/users/favorite`).then((res) => {
-      setProducts(res.data.favorites);
-    });
+    axios
+      .get(`api/users/favorite`, {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      })
+      .then((res) => {
+        setProducts(res.data.favorites);
+      });
   }, []);
 
   const likeHandler = (id) => {
