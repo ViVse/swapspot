@@ -19,10 +19,15 @@ const Favorite = () => {
   }, []);
 
   const likeHandler = (id) => {
-    console.log(id);
-    axios.patch(`api/users/favorite/${id}`).then((res) => {
-      setProducts(res.data.favorites);
-    });
+    axios
+      .patch(`api/users/favorite/${id}`, {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      })
+      .then((res) => {
+        setProducts(res.data.favorites);
+      });
   };
 
   return (
