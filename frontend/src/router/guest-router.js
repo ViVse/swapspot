@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Layout from "../components/Layout/Layout";
 import Search from "../pages/Search/Search";
+import SignUp from "../pages/SignUp/SignUp";
 
 const guestRouter = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const guestRouter = createBrowserRouter([
         element: <Home />,
       },
       { path: "/login", element: <Login /> },
+      { path: "/signup", element: <SignUp /> },
       {
         path: "*",
         loader: function () {
