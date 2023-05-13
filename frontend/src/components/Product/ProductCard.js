@@ -43,7 +43,7 @@ const ProductCard = (props) => {
               Більше
             </Button>
           </Link>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-500 ml-2">
             {location}, {timeAgo(createdAt)}
           </span>
         </div>
