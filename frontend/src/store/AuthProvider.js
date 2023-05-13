@@ -25,10 +25,23 @@ const AuthProvider = (props) => {
     setUser(user);
   };
 
+  const changeFavorites = (productId) => {
+    setUser((prevUser) => {
+      let newFavs = [prevUser.favorites];
+      if (newFavs.includes(productId)) {
+        newFavs = newFavs.filter((id) => id !== productId);
+      } else {
+        newFavs.push(productId);
+      }
+      return { ...prevUser, favorites: newFavs };
+    });
+  };
+
   const context = {
     user,
     logout,
     login,
+    changeFavorites,
   };
 
   return (
