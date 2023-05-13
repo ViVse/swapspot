@@ -1,0 +1,80 @@
+.gallery {
+  .imgs {
+    /* width */
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-clip: content-box;
+      background: #31c48d;
+      border-radius: 20px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #014451;
+    }
+  }
+
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    object-fit: cover;
+  }
+
+  .titleImg {
+    width: 100%;
+    height: 470px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  .moreCount {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    cursor: pointer;
+  }
+
+  .badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border-radius: 16px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: scale(300%) translateY(-50%);
+    left: 1rem;
+    cursor: pointer;
+    fill: #31c48d;
+
+    &.arrowRight {
+      left: auto;
+      right: 1rem;
+      transform: scale(300%) translateY(-50%) rotate(180deg);
+    }
+  }
+}
