@@ -15,6 +15,7 @@ import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import UserProducts from "./pages/UserProducts/UserProducts";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/search" element=<Search /> />
               <Route path="/product/:id" element=<Product /> />
+              <Route path="/products/user/:id" element=<UserProducts /> />
               {user && (
                 <>
                   <Route path="/favorite" element=<Favorite /> />
