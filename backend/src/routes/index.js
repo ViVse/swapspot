@@ -41,4 +41,9 @@ GET api/products/:id
 PUT api/products/:id
 PUT api/products/:id/imgs
 DELETE api/products/:id
+
+GET api/offers
+GET api/offers/id
+POST api/offers
+PATCH api/offers/id
 */
