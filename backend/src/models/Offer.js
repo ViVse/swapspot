@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { OFFER_STATUS } from "../../../const";
+import { OFFER_STATUS } from "../../../const/offerStatus.js";
 
 const offerSchema = new mongoose.Schema({
   to: {
