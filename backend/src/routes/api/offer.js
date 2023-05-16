@@ -9,11 +9,16 @@ const router = Router();
 
 // GET api/offers - get general offer info
 router.get("/", requireJWTAuth, async (req, res) => {
-  const offers = await Offer.find({
-    $or: [{ "to.user": req.user._id }, { "from.user": req.user._id }],
-  }).populate("to.products", "name");
+  const offersTo = await Offer.find({ "to.user": req.user._id }).populate(
+    "to.products",
+    "name"
+  );
+  const offerFrom = await Offer.find({ "from.user": req.user._id }).populate(
+    "to.products",
+    "name"
+  );
 
-  res.send(offers);
+  res.send({ to: offersTo, from: offerFrom });
 });
 
 // GET api/offers/id - get detailed offer if you are sender or provider
