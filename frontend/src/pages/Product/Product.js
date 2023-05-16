@@ -7,7 +7,7 @@ import Spinner from "../../components/UI/Spinner";
 import { Badge, Button } from "flowbite-react";
 import { Gallery } from "../../components/UI/Gallery/Gallery";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import OfferForm from "../../components/Offer/OfferForm/OfferFrom.js";
+import OfferForm from "../../components/Offer/OfferFrom.js";
 
 const Product = (props) => {
   const user = useSelector((state) => state.auth.user);

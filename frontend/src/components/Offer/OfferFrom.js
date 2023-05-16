@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Modal } from "flowbite-react";
-import ProductBrief from "../../Product/ProductBrief";
-import axios from "../../../config/axios";
-import { getCookie } from "../../../utils/cookie";
+import ProductBrief from "../Product/ProductBrief";
+import axios from "../../config/axios";
+import { getCookie } from "../../utils/cookie";
 
 const OfferForm = (props) => {
   const currentUserId = useSelector((state) => state.auth.user._id);
