@@ -8,6 +8,7 @@ import { Badge, Button } from "flowbite-react";
 import { Gallery } from "../../components/UI/Gallery/Gallery";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import OfferForm from "../../components/Offer/OfferFrom.js";
+import UserBrief from "../../components/User/UserBrief.js";
 
 const Product = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -89,20 +90,7 @@ const Product = (props) => {
                 </Badge>
               ))}
             </div>
-            <div className="flex mt-6 items-center">
-              <img
-                className="w-16 h-16 rounded-full object-cover mr-2"
-                src={product.owner.avatar.publicUrl}
-                alt={product.owner.name}
-              />
-              <div>
-                <h3 className="text-lg font-medium">{product.owner.name}</h3>
-                <span className="text-base text-gray-500">
-                  На SwapSpot з{" "}
-                  {new Date(product.owner.createdAt).toLocaleDateString()}
-                </span>
-              </div>
-            </div>
+            <UserBrief className="mt-6" user={product.owner} />
             <div className="mt-2">
               <Link
                 className="underline text-gray-500 font-medium"
