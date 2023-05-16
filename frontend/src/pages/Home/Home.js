@@ -34,7 +34,7 @@ const Home = () => {
         className={`h-80 overflow-hidden w-full bg-gradient-to-r from-green-400 to-teal-900 flex items-center ${styles.Baner}`}>
         <h1 className="text-9xl font-black text-white whitespace-nowrap">
           <span className="mr-36">Перетворюй непотріб на скарби!</span>
-          <span>Перетворюй непотріб на скарби!</span>
+          <span className="mr-36">Перетворюй непотріб на скарби!</span>
         </h1>
       </div>
       <div className="mt-10 font-bold text-3xl">
