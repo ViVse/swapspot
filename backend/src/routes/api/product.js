@@ -18,6 +18,7 @@ const router = Router();
 // ?page=number
 // ?limit=number
 // ?orderBy=fieldName_[asc|desc]
+// ?pagination=bool default=true
 router.get("/", async (req, res) => {
   // Configure match
   const match = {};
@@ -56,14 +57,21 @@ router.get("/", async (req, res) => {
     sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
   }
 
+  const pagination = req.query.pagination || true;
   const page = parseInt(req.query.page) || 0; //for next page pass 1 here
   const limit = parseInt(req.query.limit) || 3;
 
-  const products = await Product.find(match, null, {
-    skip: page * limit,
-    limit,
-    sort,
-  });
+  let conf = {};
+
+  if (pagination) {
+    conf = {
+      skip: page * limit,
+      limit,
+      sort,
+    };
+  }
+
+  const products = await Product.find(match, null, conf);
 
   const count = await Product.countDocuments(match);
 
