@@ -21,6 +21,7 @@ import UserProducts from "./pages/UserProducts/UserProducts";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import { authActions } from "./store/auth-slice";
 import MyOffers from "./pages/MyOffers/MyOffers";
+import Offer from "./pages/Offer/Offer";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -52,6 +53,7 @@ function App() {
                   <Route path="/my-products" element=<MyProducts /> />
                   <Route path="/create" element=<CreateProduct /> />
                   <Route path="/offers" element=<MyOffers /> />
+                  <Route path="/offer/:id" element=<Offer /> />
                 </>
               )}
               {!user && (
