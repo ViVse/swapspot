@@ -16,6 +16,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import UserProducts from "./pages/UserProducts/UserProducts";
+import CreateProduct from "./pages/CreateProduct/CreateProduct";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -34,6 +35,7 @@ function App() {
                 <>
                   <Route path="/favorite" element=<Favorite /> />
                   <Route path="/my-products" element=<MyProducts /> />
+                  <Route path="/create" element=<CreateProduct /> />
                 </>
               )}
               {!user && (
@@ -43,6 +45,7 @@ function App() {
                 </>
               )}
               <Route path="/" element=<Home /> />
+              <Route path="*" element={<p>Sorry</p>} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
