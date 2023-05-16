@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Button } from "flowbite-react";
 import { Card } from "flowbite-react";
 import { GrFormClose } from "react-icons/gr";
+import { getCookie } from "../../utils/cookie";
 
 import useInput from "../../hooks/use-input";
 import { notEmptyRule } from "../../utils/inputValidationRules";
@@ -87,13 +88,21 @@ const CreateProduct = () => {
 
     let res;
     try {
-      res = await axios.post("/api/products", {
-        name: nameValue,
-        category,
-        description: descRef.current.value,
-        tags,
-        location: locationValue,
-      });
+      res = await axios.post(
+        "/api/products",
+        {
+          name: nameValue,
+          category,
+          description: descRef.current.value,
+          tags,
+          location: locationValue,
+        },
+        {
+          headers: {
+            "x-auth-token": getCookie("x-auth-token"),
+          },
+        }
+      );
     } catch (err) {
       console.log("couldn't create product");
     }
