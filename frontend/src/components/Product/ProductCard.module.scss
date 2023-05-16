@@ -1,6 +1,17 @@
 .ProductCard {
+  display: block;
+
   & > div {
     gap: 0;
     padding: 0;
+  }
+
+  & > div {
+    padding: 0 !important;
+  }
+
+  .grid {
+    gap: 0;
+    grid-template-columns: 100%;
   }
 }

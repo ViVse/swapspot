@@ -28,7 +28,7 @@ const ProductCard = (props) => {
         />
       )}
       <img className="h-52 w-full object-cover" src={img} alt="name" />
-      <div className="px-7 pb-5 pt-3">
+      <div className={`${styles.grid} px-7 pb-5 pt-3 grow grid`}>
         <h1 className="text-xl font-semibold">{name}</h1>
         <div className="flex mt-2">
           {tags.map((tag, ind) => (
@@ -37,7 +37,7 @@ const ProductCard = (props) => {
             </Badge>
           ))}
         </div>
-        <div className="flex justify-between items-end mt-5">
+        <div className="flex justify-between self-end items-end mt-5">
           <Link to={`/product/${id}`}>
             <Button className="bg-teal-900 font-medium hover:bg-teal-700">
               Більше
