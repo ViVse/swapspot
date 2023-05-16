@@ -1,6 +1,8 @@
 import { Badge } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 const OfferBrief = (props) => {
+  const navigate = useNavigate();
   let color;
 
   switch (props.offer.status) {
@@ -18,9 +20,14 @@ const OfferBrief = (props) => {
       break;
   }
 
+  const onClick = () => {
+    navigate(`/offer/${props.offer._id}`);
+  };
+
   return (
     <div
-      className={`${props.className} hover:bg-gray-50 cursor-pointer flex rounded py-2 px-4 justify-between items-center border border-solid border-gray-100`}>
+      className={`${props.className} hover:bg-gray-50 cursor-pointer flex rounded py-2 px-4 justify-between items-center border border-solid border-gray-100`}
+      onClick={onClick}>
       <div>
         <h1>Id: {props.offer._id}</h1>
         <h3 className="font-medium text-lg">
