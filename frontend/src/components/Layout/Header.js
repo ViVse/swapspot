@@ -24,8 +24,8 @@ const Header = () => {
   };
 
   const logoutHandler = () => {
-    dispatch(authActions.logout())
-  }
+    dispatch(authActions.logout());
+  };
 
   return (
     <div className="container mx-auto px-4">
@@ -100,12 +100,20 @@ const Header = () => {
                   <Dropdown.Item>Мій профіль</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>
-                    <Link to="favorite">Бажане</Link>
+                    <Link to="favorite" className="w-full">
+                      Бажане
+                    </Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link to="my-products">Мої оголошення</Link>
+                    <Link to="my-products" className="w-full">
+                      Мої оголошення
+                    </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item>Пропозиції</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to="offers" className="w-full">
+                      Пропозиції
+                    </Link>
+                  </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={logoutHandler}>Вихід</Dropdown.Item>
                 </Dropdown>
