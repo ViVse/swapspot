@@ -25,9 +25,11 @@ const OfferForm = (props) => {
         },
       })
       .then((res) => {
-        setPossibleWantedProducts(res.data.products);
+        setPossibleWantedProducts(
+          res.data.products.filter((prod) => prod._id !== props.item._id)
+        );
       });
-  }, [props.ownerId]);
+  }, [props.ownerId, props.item._id]);
 
   useEffect(() => {
     setPossibleOfferedProducts([]);
@@ -93,7 +95,10 @@ const OfferForm = (props) => {
         {
           to: {
             user: props.ownerId,
-            products: wantedProducts.map((prod) => prod._id),
+            products: [
+              props.item._id,
+              ...wantedProducts.map((prod) => prod._id),
+            ],
           },
           products: offeredProducts.map((prod) => prod._id),
         },
