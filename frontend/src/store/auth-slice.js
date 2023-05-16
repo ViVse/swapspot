@@ -9,11 +9,11 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.user = null;
+      deleteCookie("x-auth-token");
     },
     // action.payload - new user
     login(state, action) {
       state.user = action.payload;
-      deleteCookie("x-auth-token");
     },
     // action.payload - favorites array
     setFavorites(state, action) {
