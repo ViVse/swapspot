@@ -19,7 +19,9 @@ const MyProducts = () => {
   useEffect(() => {
     axios
       .get(
-        `api/products?page=${curPage - 1}&limit=${limit}&owner=${user._id}`,
+        `api/products?page=${curPage - 1}&limit=${limit}&owner=${
+          user._id
+        }&sortBy=createdAt_desc`,
         {
           headers: {
             "x-auth-token": getCookie("x-auth-token"),
