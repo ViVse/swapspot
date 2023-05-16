@@ -134,7 +134,6 @@ router.patch("/favorite/:productId", requireJWTAuth, async (req, res) => {
   }
 
   await req.user.save();
-  await req.user.populate("favorites");
   res.send({ favorites: req.user.favorites });
 });
 
