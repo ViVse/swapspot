@@ -8,7 +8,7 @@ const ProductCard = (props) => {
   const { id, name, img, tags, location, createdAt, isFavorite } = props;
 
   return (
-    <Card className={`w-64 ${styles.ProductCard} relative`}>
+    <Card className={`w-64 ${styles.ProductCard} relative overflow-hidden`}>
       {props.like &&
         (isFavorite ? (
           <AiFillHeart
