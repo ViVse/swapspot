@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { deleteCookie } from "../utils/cookie";
 
 const authSlice = createSlice({
   name: "auth",
@@ -12,6 +13,7 @@ const authSlice = createSlice({
     // action.payload - new user
     login(state, action) {
       state.user = action.payload;
+      deleteCookie("x-auth-token");
     },
     // action.payload - favorites array
     setFavorites(state, action) {
