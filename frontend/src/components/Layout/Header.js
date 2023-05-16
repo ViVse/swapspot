@@ -57,9 +57,11 @@ const Header = () => {
             )}
             {user && (
               <>
-                <Button className="bg-teal-900 font-medium hover:bg-teal-700 mr-4">
-                  Додати оголошення
-                </Button>
+                <Link to="/create">
+                  <Button className="bg-teal-900 font-medium hover:bg-teal-700 mr-4">
+                    Додати оголошення
+                  </Button>
+                </Link>
                 <div className="relative mr-4">
                   <BsBellFill className="fill-teal-900 w-7 h-7" />
                   <span className={styles.badge}>1</span>
