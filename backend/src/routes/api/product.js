@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
     sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
   }
 
-  const pagination = req.query.pagination || true;
+  const pagination = !(req.query.pagination === "false");
   const page = parseInt(req.query.page) || 0; //for next page pass 1 here
   const limit = parseInt(req.query.limit) || 3;
 
