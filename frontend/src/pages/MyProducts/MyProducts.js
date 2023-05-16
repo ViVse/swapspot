@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
 import Pagination from "../../components/UI/Pagination";
 import { useSearchParams } from "react-router-dom";
-import AuthContext from "../../store/auth-context";
 import { getCookie } from "../../utils/cookie";
 
 import styles from "./MyProducts.module.scss";
 
 const MyProducts = () => {
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
   const [products, setProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);

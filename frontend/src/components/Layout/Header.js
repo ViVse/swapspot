@@ -1,16 +1,17 @@
+import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Dropdown, Avatar, Button } from "flowbite-react";
 import { CATEGORIES } from "../../const/categories";
 import HoverDropdown from "../UI/HoverDropdown";
 import { BsBellFill, BsFillChatDotsFill } from "react-icons/bs";
-import { useContext } from "react";
-import AuthContext from "../../store/auth-context";
 import { Link, useNavigate } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 
 import styles from "./Header.module.scss";
+import { authActions } from "../../store/auth-slice";
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { value: searchValue, valueChangeHandler: searchChangeHandler } =
@@ -21,6 +22,10 @@ const Header = () => {
       navigate(`search?name=${searchValue}`);
     }
   };
+
+  const logoutHandler = () => {
+    dispatch(authActions.logout())
+  }
 
   return (
     <div className="container mx-auto px-4">
@@ -102,7 +107,7 @@ const Header = () => {
                   </Dropdown.Item>
                   <Dropdown.Item>Пропозиції</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={logout}>Вихід</Dropdown.Item>
+                  <Dropdown.Item onClick={logoutHandler}>Вихід</Dropdown.Item>
                 </Dropdown>
               </>
             )}

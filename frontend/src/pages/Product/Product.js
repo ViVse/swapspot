@@ -1,15 +1,16 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getCookie } from "../../utils/cookie";
+import { changeFavorites } from "../../store/auth-actions.js";
 import axios from "../../config/axios";
 import Spinner from "../../components/UI/Spinner";
 import { Badge, Button } from "flowbite-react";
 import { Gallery } from "../../components/UI/Gallery/Gallery";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import AuthContext from "../../store/auth-context";
 
 const Product = (props) => {
-  const { user, changeFavorites } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,17 +28,8 @@ const Product = (props) => {
   }, [id]);
 
   const likeHandler = () => {
-    axios
-      .patch(`api/users/favorite/${id}`, {
-        headers: {
-          "x-auth-token": getCookie("x-auth-token"),
-        },
-      })
-      .then((res) => {
-        changeFavorites(id);
-        setIsFavorite((prev) => !prev);
-      })
-      .catch((err) => console.log(err));
+    dispatch(changeFavorites(id));
+    setIsFavorite((prev) => !prev);
   };
 
   if (isLoading) {

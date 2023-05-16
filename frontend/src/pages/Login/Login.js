@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCookie } from "../../utils/cookie";
 import useInput from "../../hooks/use-input";
 import { emailRule } from "../../utils/inputValidationRules";
 import Input from "../../components/UI/Input";
@@ -7,13 +10,10 @@ import { IoLogoGoogle } from "react-icons/io";
 import axios from "../../config/axios";
 
 import styles from "./Login.module.scss";
-import { useContext } from "react";
-import AuthContext from "../../store/auth-context";
-import { useNavigate } from "react-router-dom";
-import { setCookie } from "../../utils/cookie";
+import { authActions } from "../../store/auth-slice";
 
 const Login = () => {
-  const context = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -46,7 +46,7 @@ const Login = () => {
 
     const { me, token } = res.data;
     setCookie("x-auth-token", token, 2);
-    context.login(me);
+    dispatch(authActions.login(me));
 
     resetEmail();
     resetPassword();

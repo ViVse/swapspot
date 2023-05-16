@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "./store/auth-context";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "./config/axios";
+import { getCookie } from "./utils/cookie";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import Search from "./pages/Search/Search";
@@ -17,9 +19,21 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import UserProducts from "./pages/UserProducts/UserProducts";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
+import { authActions } from "./store/auth-slice";
 
 function App() {
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const authToken = getCookie("x-auth-token");
+    if (!authToken) return;
+
+    axios
+      .get("/api/users/me")
+      .then((res) => dispatch(authActions.login(res.data.me)))
+      .catch((err) => console.log(err));
+  }, [dispatch]);
 
   return (
     <>

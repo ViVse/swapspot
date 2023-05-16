@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
 import { getCookie } from "../../utils/cookie";
+import { changeFavorites } from "../../store/auth-actions";
 
 const Favorite = () => {
+  const favs = useSelector((state) => state.auth.user.favorites);
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
+  const getFavs = useCallback(
+    () =>
+      axios
+        .get(`api/users/favorite`, {
+          headers: {
+            "x-auth-token": getCookie("x-auth-token"),
+          },
+        })
+        .then((res) => {
+          setProducts(res.data.favorites);
+        }),
+    []
+  );
+
   useEffect(() => {
-    axios
-      .get(`api/users/favorite`, {
-        headers: {
-          "x-auth-token": getCookie("x-auth-token"),
-        },
-      })
-      .then((res) => {
-        setProducts(res.data.favorites);
-      });
-  }, []);
+    getFavs();
+  }, [getFavs, favs]);
 
   const likeHandler = (id) => {
-    axios
-      .patch(`api/users/favorite/${id}`, {
-        headers: {
-          "x-auth-token": getCookie("x-auth-token"),
-        },
-      })
-      .then((res) => {
-        setProducts(res.data.favorites);
-      });
+    dispatch(changeFavorites(id));
   };
 
   return (
