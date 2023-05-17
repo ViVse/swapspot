@@ -26,6 +26,7 @@ import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
 import Notifications from "./pages/Notifications/Notifications";
 import useSocketIo from "./hooks/use-socket.io";
+import { notificationActions } from "./store/notification-slice";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -50,9 +51,16 @@ function App() {
 
   // add user to socket
   useEffect(() => {
-    if (!user) return;
+    if (!user || !socket) return;
     socket.emit("addUser", user._id);
   }, [user, socket]);
+
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("getNotification", (data) => {
+      dispatch(notificationActions.addNotification(data));
+    });
+  }, [dispatch, socket]);
 
   return (
     <>
