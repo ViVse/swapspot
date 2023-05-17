@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from "flowbite-react";
+import useSocket from "../../hooks/use-socket.io";
 import ProductBrief from "../Product/ProductBrief";
 import axios from "../../config/axios";
 import { getCookie } from "../../utils/cookie";
+import { createNotification } from "../../store/notification-actions";
 
 const OfferForm = (props) => {
   const currentUserId = useSelector((state) => state.auth.user._id);
+  const dispatch = useDispatch();
+  const { socket } = useSocket();
 
   const [showAddWanted, setShowAddWanted] = useState(false);
   const [possibleWantedProducts, setPossibleWantedProducts] = useState([]);
@@ -109,25 +113,20 @@ const OfferForm = (props) => {
         }
       )
       .then((res) => {
-        return axios.post(
-          "api/notifications",
-          {
-            user: props.ownerId,
-            title: "Нова пропозиція",
-            text: `Пропозиція на товари ${[props.item, ...wantedProducts]
+        dispatch(
+          createNotification(
+            socket,
+            props.ownerId,
+            "Нова пропозиція",
+            `Пропозиція на товари ${[props.item, ...wantedProducts]
               .map((prod) => prod.name)
               .join(", ")}`,
-            link: `/offer/${res.data._id}`,
-          },
-          {
-            headers: {
-              "x-auth-token": getCookie("x-auth-token"),
-            },
-          }
+            `/offer/${res.data._id}`
+          )
         );
       })
-      .then(() => props.onClose())
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => props.onClose());
   };
 
   return (
