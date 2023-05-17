@@ -22,6 +22,7 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import { authActions } from "./store/auth-slice";
 import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
+import { fetchNotifications } from "./store/notification-actions";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -35,6 +36,11 @@ function App() {
       .get("/api/users/me")
       .then((res) => dispatch(authActions.login(res.data.me)))
       .catch((err) => console.log(err));
+  }, [dispatch]);
+
+  // load notifications
+  useEffect(() => {
+    dispatch(fetchNotifications());
   }, [dispatch]);
 
   return (
