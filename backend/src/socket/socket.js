@@ -16,7 +16,6 @@ const removeUser = (socketId) => {
 export default (io) => {
   io.on("connection", (socket) => {
     socket.on("addUser", (userId) => {
-      console.log(`added ${userId}`);
       addUser(userId, socket.id);
     });
 
