@@ -15,12 +15,15 @@ const removeUser = (socketId) => {
 
 export default (io) => {
   io.on("connection", (socket) => {
-    //when connected
-    console.log("a user connected.");
-
     socket.on("addUser", (userId) => {
       console.log(`added ${userId}`);
       addUser(userId, socket.id);
+    });
+
+    socket.on("sendNotification", (notification) => {
+      const user = getUser(notification.user);
+      if (!user) return;
+      io.to(user.socketId).emit("getNotification", notification);
     });
 
     socket.on("disconnect", () => {
