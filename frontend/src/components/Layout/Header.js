@@ -11,6 +11,9 @@ import { authActions } from "../../store/auth-slice";
 
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
+  const newNotificationCount = useSelector(
+    (state) => state.notification.newCount
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,8 +71,14 @@ const Header = () => {
                   </Button>
                 </Link>
                 <div className="relative mr-4">
-                  <BsBellFill className="fill-teal-900 w-7 h-7" />
-                  <span className={styles.badge}>1</span>
+                  <Link to="/notifications">
+                    <BsBellFill className="fill-teal-900 w-7 h-7" />
+                    {newNotificationCount > 0 && (
+                      <span className={styles.badge}>
+                        {newNotificationCount}
+                      </span>
+                    )}
+                  </Link>
                 </div>
                 <div className="relative mr-4">
                   <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
