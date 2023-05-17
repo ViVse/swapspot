@@ -3,10 +3,12 @@ import ProductCard from "../../components/Product/ProductCard";
 import axios from "../../config/axios";
 import Pagination from "../../components/UI/Pagination";
 import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./Home.module.scss";
 
 const Home = () => {
+  const user = useSelector((state) => state.auth.user);
   const [products, setProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
@@ -16,13 +18,15 @@ const Home = () => {
   useEffect(() => {
     axios
       .get(
-        `api/products?page=${curPage - 1}&limit=${limit}&sortBy=createdAt_desc`
+        `api/products?page=${curPage - 1}&limit=${limit}&sortBy=createdAt_desc${
+          user ? `&notOwner=${user._id}` : ""
+        }`
       )
       .then((res) => {
         setProducts(res.data.products);
         setTotalPages(Math.ceil(res.data.total / limit));
       });
-  }, [curPage]);
+  }, [curPage, user]);
 
   const pageChangeHandler = (page) => {
     setSearchParams({ page });

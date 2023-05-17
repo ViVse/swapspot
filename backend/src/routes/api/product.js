@@ -19,12 +19,16 @@ const router = Router();
 // ?limit=number
 // ?orderBy=fieldName_[asc|desc]
 // ?pagination=bool default=true
+// ?notOwner=ownerId
 router.get("/", async (req, res) => {
   // Configure match
   const match = {};
   //    Search by owner
   if (req.query.owner) {
     match.owner = req.query.owner;
+  }
+  if (req.query.notOwner) {
+    match.owner = { $ne: req.query.notOwner };
   }
   //    Search by category
   if (req.query.category) {
