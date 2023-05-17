@@ -25,10 +25,14 @@ router.post("/", requireJWTAuth, async (req, res) => {
   const { error } = notificationSchema.validate(req.body);
   if (error) return res.status(422).send({ message: error.details[0].message });
 
-  const { title, text, link } = req.body;
+  const { user, title, text, link } = req.body;
+
+  if (!isValidObjectId(user)) {
+    return res.status(400).send({ message: "Not valid userId" });
+  }
 
   const notification = await new Notificaton({
-    user: req.user._id,
+    user,
     title,
     text,
     link,
