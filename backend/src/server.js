@@ -6,12 +6,23 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+import http from "http";
+import { Server } from "socket.io";
 
 import connectDB from "./db/db.js";
 import routes from "./routes/index.js";
 import useJWTStategy from "./auth/jwtStrategy.js";
 import useGoogleStrategy from "./auth/googleStrategy.js";
 import useLocalStrategy from "./auth/localStrategy.js";
+import setupSocket from "./socket/socket.js";
+
+// CORS allowed origins
+var whitelist = [
+  process.env.CLIENT_URL,
+  process.env.SERVER_URL,
+  "http://localhost:3000",
+  "http://192.168.0.106:5000",
+];
 
 // Load confg
 dotenv.config({ path: "./src/config/config.env" });
@@ -20,14 +31,14 @@ dotenv.config({ path: "./src/config/config.env" });
 connectDB();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  transports: ["polling"],
+  cors: { origin: whitelist },
+});
+setupSocket(io);
 
 // Middlewares
-var whitelist = [
-  process.env.CLIENT_URL,
-  process.env.SERVER_URL,
-  "http://localhost:3000",
-  "http://192.168.0.106:5000",
-];
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -89,7 +100,7 @@ app.use("/", routes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(
+server.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
