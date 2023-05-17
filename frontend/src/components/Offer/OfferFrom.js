@@ -108,9 +108,26 @@ const OfferForm = (props) => {
           },
         }
       )
-      .then(() => {
-        props.onClose();
-      });
+      .then((res) => {
+        return axios.post(
+          "api/notifications",
+          {
+            user: props.ownerId,
+            title: "Нова пропозиція",
+            text: `Пропозиція на товари ${[props.item, ...wantedProducts]
+              .map((prod) => prod.name)
+              .join(", ")}`,
+            link: `/offer/${res.data._id}`,
+          },
+          {
+            headers: {
+              "x-auth-token": getCookie("x-auth-token"),
+            },
+          }
+        );
+      })
+      .then(() => props.onClose())
+      .catch((err) => console.log(err));
   };
 
   return (
