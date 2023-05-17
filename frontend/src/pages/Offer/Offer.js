@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Badge } from "flowbite-react";
+import useSocket from "../../hooks/use-socket.io";
+import { createNotification } from "../../store/notification-actions";
 import Spinner from "../../components/UI/Spinner";
 import axios from "../../config/axios";
 import { getCookie } from "../../utils/cookie";
 import ProductBrief from "../../components/Product/ProductBrief";
 import UserBrief from "../../components/User/UserBrief";
-import { useSelector } from "react-redux";
 
 const Offer = () => {
+  const { socket } = useSocket();
+  const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.auth.user._id);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +47,18 @@ const Offer = () => {
           },
         }
       )
-      .then(() => getOffer());
+      .then(() => {
+        getOffer();
+        dispatch(
+          createNotification(
+            socket,
+            offer.from.user._id,
+            `Ваш запит було ${status}`,
+            `${offer.to.user.name} змінив статус пропозиції`,
+            `/offer/${offer._id}`
+          )
+        );
+      });
   };
 
   if (isLoading) {
