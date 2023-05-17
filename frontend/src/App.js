@@ -25,11 +25,14 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
 import Notifications from "./pages/Notifications/Notifications";
+import useSocketIo from "./hooks/use-socket.io";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
+  const { socket } = useSocketIo();
   const dispatch = useDispatch();
 
+  // check if logged in
   useEffect(() => {
     const authToken = getCookie("x-auth-token");
     if (!authToken) return;
@@ -44,6 +47,12 @@ function App() {
   useEffect(() => {
     dispatch(fetchNotifications());
   }, [dispatch]);
+
+  // add user to socket
+  useEffect(() => {
+    if (!user) return;
+    socket.emit("addUser", user._id);
+  }, [user, socket]);
 
   return (
     <>
