@@ -16,6 +16,12 @@ const notificationSlice = createSlice({
       state.notifications.forEach((n) => n.read === true);
       state.newCount = 0;
     },
+    //action.payload = notificationId
+    delete(state, action) {
+      state.notifications = state.notifications.filter(
+        (n) => n._id !== action.payload
+      );
+    },
   },
 });
 

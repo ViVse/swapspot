@@ -36,3 +36,38 @@ export const readNotifications = () => {
     }
   };
 };
+
+export const deleteNotification = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`api/notifications/${id}`, {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      });
+      dispatch(notificationActions.delete(id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const deleteAll = () => {
+  return async (dispatch) => {
+    try {
+      await axios.delete("api/notifications/all", {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      });
+      dispatch(
+        notificationActions.setNotifications({
+          notifications: [],
+          newCount: 0,
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
