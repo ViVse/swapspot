@@ -9,7 +9,11 @@ const router = Router();
 // GET api/notifications - get notifications
 router.get("/", requireJWTAuth, async (req, res) => {
   const notifications = await Notificaton.find({ user: req.user._id });
-  res.send(notifications);
+  const unreadCount = await Notificaton.countDocuments({
+    user: req.user._id,
+    read: false,
+  });
+  res.send({ notifications, new: unreadCount });
 });
 
 // POST api/notifications - create notification
