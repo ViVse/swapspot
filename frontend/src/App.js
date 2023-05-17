@@ -8,6 +8,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import axios from "./config/axios";
 import { getCookie } from "./utils/cookie";
+import { fetchNotifications } from "./store/notification-actions";
+import { authActions } from "./store/auth-slice";
+
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import Search from "./pages/Search/Search";
@@ -19,10 +22,9 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import UserProducts from "./pages/UserProducts/UserProducts";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
-import { authActions } from "./store/auth-slice";
 import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
-import { fetchNotifications } from "./store/notification-actions";
+import Notifications from "./pages/Notifications/Notifications";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -60,6 +62,7 @@ function App() {
                   <Route path="/create" element=<CreateProduct /> />
                   <Route path="/offers" element=<MyOffers /> />
                   <Route path="/offer/:id" element=<Offer /> />
+                  <Route path="/notifications" element=<Notifications /> />
                 </>
               )}
               {!user && (
