@@ -31,7 +31,8 @@ const OfferBrief = (props) => {
       <div>
         <h1>Id: {props.offer._id}</h1>
         <h3 className="font-medium text-lg">
-          Бажані товари: {props.offer.to.products.map((prod) => prod.name)}
+          Бажані товари:{" "}
+          {props.offer.to.products.map((prod) => prod.name).join(", ")}
         </h3>
       </div>
       <Badge color={color} className="w-fit mt-2">
