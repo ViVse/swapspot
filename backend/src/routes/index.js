@@ -23,7 +23,6 @@ GET /auth/google/callback
 
 POST /auth/login
 POST /auth/register
-GET /auth/logout
 
 GET /api/users/
 GET /api/users/me
@@ -46,4 +45,10 @@ GET api/offers
 GET api/offers/id
 POST api/offers
 PATCH api/offers/id
+
+GET api/notifications
+POST api/notifications
+PATCH api/notifications/read
+DELETE api/notifications/all
+DELETE api/notifications/:id
 */
