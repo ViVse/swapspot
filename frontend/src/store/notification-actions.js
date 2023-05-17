@@ -22,6 +22,27 @@ export const fetchNotifications = () => {
   };
 };
 
+export const createNotification = (socket, user, title, text, link) => {
+  return async () => {
+    const res = await axios.post(
+      "api/notifications",
+      {
+        user,
+        title,
+        text,
+        link,
+      },
+      {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      }
+    );
+    socket.emit("sendNotification", res.data);
+  };
+};
+
+// sets all notifications as read
 export const readNotifications = () => {
   return async (dispatch) => {
     try {
