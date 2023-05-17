@@ -22,6 +22,11 @@ const notificationSlice = createSlice({
         (n) => n._id !== action.payload
       );
     },
+    //action.payload = notification
+    addNotification(state, action) {
+      state.notifications.unshift(action.payload);
+      state.newCount++;
+    },
   },
 });
 
