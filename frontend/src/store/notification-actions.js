@@ -21,3 +21,18 @@ export const fetchNotifications = () => {
     }
   };
 };
+
+export const readNotifications = () => {
+  return async (dispatch) => {
+    try {
+      await axios.patch("api/notifications/read", {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      });
+      dispatch(notificationActions.setAllRead());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

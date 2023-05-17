@@ -12,6 +12,10 @@ const notificationSlice = createSlice({
       state.notifications = action.payload.notifications;
       state.newCount = action.payload.newCount;
     },
+    setAllRead(state) {
+      state.notifications.forEach((n) => n.read === true);
+      state.newCount = 0;
+    },
   },
 });
 
