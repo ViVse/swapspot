@@ -4,6 +4,7 @@ const chatSlice = createSlice({
   name: "chat",
   initialState: {
     conversations: [],
+    selectedConversation: "",
     // messages of selected conversation
     messages: [],
     unreadCount: 0,
@@ -20,6 +21,10 @@ const chatSlice = createSlice({
     // action.payload: messages
     setMessages(state, action) {
       state.messages = action.payload;
+    },
+    // action.payload: conversationId
+    selectConversation(state, action) {
+      state.selectedConversation = action.payload;
     },
   },
 });
