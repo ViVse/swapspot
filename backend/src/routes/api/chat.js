@@ -33,6 +33,27 @@ router.get("/conversations", requireJWTAuth, async (req, res) => {
   }
 });
 
+// GET api/chat/conversations/unread - get number of unread messages
+router.get("/conversations/unread", requireJWTAuth, async (req, res) => {
+  try {
+    const conversations = await Conversation.find({
+      members: { $in: [req.user._id] },
+    }).populate("messages", null, {
+      read: false,
+      sender: { $ne: req.user._id },
+    });
+
+    let unreadCount = 0;
+    conversations.forEach((conv) => {
+      unreadCount += conv.messages.length;
+    });
+
+    res.send({ unreadCount });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 // GET api/chat/conversation/:id - get conversation with a user
 router.get("/conversation/:id", requireJWTAuth, async (req, res) => {
   try {
