@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Message from "./Message.js";
 
 const conversationSchema = new mongoose.Schema(
   {
@@ -26,11 +27,12 @@ conversationSchema.virtual("messages", {
 conversationSchema.methods.countUnread = function (userId) {
   return new Promise(async (resolve, reject) => {
     try {
-      const val = await this.populate("messages", null, {
+      const val = await Message.countDocuments({
+        conversation: this._id,
         read: false,
         sender: { $ne: userId },
       });
-      resolve(val.messages.length);
+      resolve(val);
     } catch (error) {
       reject(error);
     }
