@@ -14,6 +14,7 @@ const Header = () => {
   const newNotificationCount = useSelector(
     (state) => state.notification.newCount
   );
+  const newMessagesCount = useSelector((state) => state.chat.unreadCount);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -81,8 +82,12 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="relative mr-4">
-                  <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
-                  <span className={styles.badge}>1</span>
+                  <Link to="/chats">
+                    <BsFillChatDotsFill className="fill-teal-900 w-7 h-7" />
+                    {newMessagesCount > 0 && (
+                      <span className={styles.badge}>{newMessagesCount}</span>
+                    )}
+                  </Link>
                 </div>
                 <Dropdown
                   arrowIcon={false}
