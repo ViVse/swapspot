@@ -16,3 +16,18 @@ export const fetchUnreadCount = () => {
     }
   };
 };
+
+export const fetchConversations = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get("/api/chat/conversations", {
+        headers: {
+          "x-auth-token": getCookie("x-auth-token"),
+        },
+      });
+      dispatch(chatActions.setConversations(res.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
