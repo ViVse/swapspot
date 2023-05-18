@@ -23,6 +23,20 @@ conversationSchema.virtual("messages", {
   foreignField: "conversation",
 });
 
+conversationSchema.methods.countUnread = function (userId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const val = await this.populate("messages", null, {
+        read: false,
+        sender: { $ne: userId },
+      });
+      resolve(val.messages.length);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const Conversation = mongoose.model("Conversation", conversationSchema);
 
 export default Conversation;
