@@ -28,6 +28,10 @@ button span {
   justify-content: space-between;
 }
 
+.gridDefault {
+  display: grid;
+}
+
 .scroll::-webkit-scrollbar {
   width: 10px;
 }
