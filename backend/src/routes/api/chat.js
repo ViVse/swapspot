@@ -38,16 +38,15 @@ router.get("/conversations/unread", requireJWTAuth, async (req, res) => {
   try {
     const conversations = await Conversation.find({
       members: { $in: [req.user._id] },
-    }).populate("messages", null, {
-      read: false,
-      sender: { $ne: req.user._id },
     });
 
     let unreadCount = 0;
-    conversations.forEach((conv) => {
-      unreadCount += conv.messages.length;
-    });
 
+    for (let conv of conversations) {
+      unreadCount += await conv.countUnread(req.user._id);
+    }
+
+    console.log(`sent: ${unreadCount}`);
     res.send({ unreadCount });
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -73,7 +72,9 @@ router.get("/conversation/:id", requireJWTAuth, async (req, res) => {
       await conversation.populate("messages");
     }
 
-    res.send(conversation);
+    const unread = await conversation.countUnread(req.user._id);
+
+    res.send({ ...conversation.toJSON(), unread });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
