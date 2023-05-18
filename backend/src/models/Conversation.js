@@ -14,6 +14,12 @@ const conversationSchema = new mongoose.Schema(
   }
 );
 
+conversationSchema.virtual("messages", {
+  ref: "Message",
+  localField: "_id",
+  foreignField: "conversation",
+});
+
 const Conversation = mongoose.model("Conversation", conversationSchema);
 
 export default Conversation;
