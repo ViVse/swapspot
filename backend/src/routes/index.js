@@ -56,4 +56,5 @@ GET api/chat/conversations
 GET api/chat/conversation/:id
 POST api/chat/message
 PATCH api/chat/:conversationId/read 
+GET api/chat/conversations/unread
 */
