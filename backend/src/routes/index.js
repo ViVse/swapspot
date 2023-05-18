@@ -51,4 +51,9 @@ POST api/notifications
 PATCH api/notifications/read
 DELETE api/notifications/all
 DELETE api/notifications/:id
+
+GET api/chat/conversations
+GET api/chat/conversation/:id
+POST api/chat/message
+PATCH api/chat/:conversationId/read 
 */
