@@ -27,6 +27,7 @@ import Offer from "./pages/Offer/Offer";
 import Notifications from "./pages/Notifications/Notifications";
 import useSocketIo from "./hooks/use-socket.io";
 import { notificationActions } from "./store/notification-slice";
+import { fetchUnreadCount } from "./store/chat-actions";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -44,10 +45,12 @@ function App() {
       .catch((err) => console.log(err));
   }, [dispatch]);
 
-  // load notifications
+  // load notifications && fetch unread messages count
   useEffect(() => {
+    if (!user) return;
     dispatch(fetchNotifications());
-  }, [dispatch]);
+    dispatch(fetchUnreadCount());
+  }, [dispatch, user]);
 
   // add user to socket
   useEffect(() => {
