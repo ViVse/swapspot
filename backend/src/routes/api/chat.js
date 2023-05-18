@@ -46,7 +46,6 @@ router.get("/conversations/unread", requireJWTAuth, async (req, res) => {
       unreadCount += await conv.countUnread(req.user._id);
     }
 
-    console.log(`sent: ${unreadCount}`);
     res.send({ unreadCount });
   } catch (err) {
     res.status(500).send({ message: err.message });
