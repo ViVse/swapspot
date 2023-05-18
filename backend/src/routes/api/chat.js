@@ -27,7 +27,15 @@ router.get("/conversations", requireJWTAuth, async (req, res) => {
           sort: { createdAt: "desc" },
         },
       });
-    res.send(conversations);
+
+    let conversationsWithUnread = [];
+    for (let conv of conversations) {
+      const newCount = await conv.countUnread(req.user._id);
+      conv = conv.toObject();
+      conv.new = newCount;
+      conversationsWithUnread.push(conv);
+    }
+    res.send(conversationsWithUnread);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
