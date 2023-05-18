@@ -8,6 +8,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import axios from "./config/axios";
 import { getCookie } from "./utils/cookie";
+import { notificationActions } from "./store/notification-slice";
+import useSocketIo from "./hooks/use-socket.io";
+import { fetchUnreadCount } from "./store/chat-actions";
 import { fetchNotifications } from "./store/notification-actions";
 import { authActions } from "./store/auth-slice";
 
@@ -25,9 +28,7 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
 import Notifications from "./pages/Notifications/Notifications";
-import useSocketIo from "./hooks/use-socket.io";
-import { notificationActions } from "./store/notification-slice";
-import { fetchUnreadCount } from "./store/chat-actions";
+import AllChats from "./pages/Chat/AllChats";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -83,6 +84,7 @@ function App() {
                   <Route path="/offers" element=<MyOffers /> />
                   <Route path="/offer/:id" element=<Offer /> />
                   <Route path="/notifications" element=<Notifications /> />
+                  <Route path="/chats" element=<AllChats /> />
                 </>
               )}
               {!user && (
