@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { BsCheckAll, BsCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { transformDateTime } from "../../utils/timeAgo";
 
 const Conversation = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -9,26 +10,8 @@ const Conversation = (props) => {
   const newCount = props.conversation.new;
   const time = props.conversation.updatedAt;
 
-  const transformDateTime = (date) => {
-    const time = new Date(date);
-    const today = new Date();
-    if (today.toDateString() === time.toDateString()) {
-      return `${time.getHours()}:${time.getMinutes()}`;
-    }
-    if (today.getFullYear() === time.getFullYear()) {
-      return `${time.getDate()}.${String(time.getMonth() + 1).padStart(
-        2,
-        "0"
-      )}`;
-    }
-    return `${time.getDate()}.${String(time.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}.${time.getFullYear()}`;
-  };
-
   return (
-    <Link to={`/chat/${props.conversation._id}`}>
+    <Link to={`/chat/${chatWith._id}`}>
       <div
         className={`${props.className} max-w-screen border-b py-2 border-solid border-gray-500 flex items-center`}>
         <img
