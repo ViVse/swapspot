@@ -14,7 +14,7 @@ const MyProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
   const curPage = searchParams.get("page") || 1;
-  const limit = 2;
+  const limit = 8;
 
   useEffect(() => {
     axios
