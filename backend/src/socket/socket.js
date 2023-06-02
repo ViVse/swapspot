@@ -25,6 +25,13 @@ export default (io) => {
       io.to(user.socketId).emit("getNotification", notification);
     });
 
+    socket.on("sendMessage", (messageData) => {
+      const user = getUser(messageData.to);
+      if (!user) return;
+      console.log("sent Message");
+      io.to(user.socketId).emit("getMessage", messageData.message);
+    });
+
     socket.on("disconnect", () => {
       removeUser(socket.id);
     });
