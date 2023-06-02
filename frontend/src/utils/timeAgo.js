@@ -1,3 +1,20 @@
+export const transformDateTime = (date) => {
+  const time = new Date(date);
+  const today = new Date();
+  if (today.toDateString() === time.toDateString()) {
+    return `${String(time.getHours()).padStart(2, "0")}:${String(
+      time.getMinutes()
+    ).padStart(2, "0")}`;
+  }
+  if (today.getFullYear() === time.getFullYear()) {
+    return `${time.getDate()}.${String(time.getMonth() + 1).padStart(2, "0")}`;
+  }
+  return `${time.getDate()}.${String(time.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}.${time.getFullYear()}`;
+};
+
 export default function timeAgo(time) {
   switch (typeof time) {
     case "number":
