@@ -13,6 +13,7 @@ import useSocketIo from "./hooks/use-socket.io";
 import { fetchUnreadCount } from "./store/chat-actions";
 import { fetchNotifications } from "./store/notification-actions";
 import { authActions } from "./store/auth-slice";
+import { chatActions } from "./store/chat-slice";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
@@ -29,6 +30,7 @@ import MyOffers from "./pages/MyOffers/MyOffers";
 import Offer from "./pages/Offer/Offer";
 import Notifications from "./pages/Notifications/Notifications";
 import AllChats from "./pages/Chat/AllChats";
+import Chat from "./pages/Chat/Chat";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -66,6 +68,14 @@ function App() {
     });
   }, [dispatch, socket]);
 
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("getMessage", (data) => {
+      dispatch(chatActions.addMessage(data));
+    });
+  }, [dispatch, socket]);
+
   return (
     <>
       <Router>
@@ -85,6 +95,7 @@ function App() {
                   <Route path="/offer/:id" element=<Offer /> />
                   <Route path="/notifications" element=<Notifications /> />
                   <Route path="/chats" element=<AllChats /> />
+                  <Route path="/chat/:convId" element=<Chat /> />
                 </>
               )}
               {!user && (
