@@ -121,6 +121,8 @@ router.patch("/:conversationsId/read", requireJWTAuth, async (req, res) => {
     const result = await Message.updateMany(
       {
         conversation: req.params.conversationsId,
+        sender: { $ne: req.user._id },
+        read: false,
       },
       { $set: { read: true } }
     );
