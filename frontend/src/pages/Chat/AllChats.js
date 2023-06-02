@@ -7,8 +7,6 @@ const AllChats = () => {
   const dispatch = useDispatch();
   const conversations = useSelector((state) => state.chat.conversations);
 
-  console.log(conversations);
-
   useEffect(() => {
     dispatch(fetchConversations());
   }, [dispatch]);
